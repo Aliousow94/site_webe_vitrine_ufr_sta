@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+Modifier une formation
+{% endblock %}
+
+{% block contenu %}
+
+<h2>Modifier une formation</h2>
+
+<form method="POST">
+
+    <label>Nom</label><br>
+
+    <input
+        type="text"
+        name="nom"
+        value="{{ formation[1] }}"
+    >
+
+    <br><br>
+
+    <label>Niveau</label><br>
+
+    <input
+        type="text"
+        name="niveau"
+        value="{{ formation[2] }}"
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Modifier
+    </button>
+
+</form>
+
+{% endblock %}

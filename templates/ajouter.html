@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ajouter une formation
+{% endblock %}
+
+{% block contenu %}
+
+<h2>Ajouter une formation</h2>
+
+<form method="POST">
+
+    <label>Nom :</label><br>
+    <input type="text" name="nom" required>
+
+    <br><br>
+
+    <label>Niveau :</label><br>
+    <input type="text" name="niveau" required>
+
+    <br><br>
+
+    <button type="submit">Ajouter</button>
+
+</form>
+
+{% endblock %}
