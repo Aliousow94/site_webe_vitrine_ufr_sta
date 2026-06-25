@@ -1,39 +1,165 @@
-{% extends "base.html" %}
-{% block title %}
-formations
-{% endblock %}
-{% block contenu %}
-<a href="{{ url_for('ajouter') }}">
-    Ajouter une formation
-</a>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation - Licence Informatique</title>
 
-<br><br>
-<h2>Liste des formations</h2>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Niveau</th>
-        <th>Action</th>
-    </tr>
+body{
+    background:#f4f6f9;
+    padding:30px;
+}
 
-    {% for formation in formations %}
-    <tr>
-        <td>{{ formation[0] }}</td>
-        <td>{{ formation[1] }}</td>
-        <td>{{ formation[2] }}</td>
-        <td>
-        <a href="{{ url_for('modifier', id=formation[0]) }}">
-            Modifier
-        </a>
-    </td>
-    </tr>
-    {% endfor %}
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+    color:#003366;
+    margin-bottom:25px;
+}
+
+h2{
+    color:#0056b3;
+    margin:20px 0 10px;
+    border-left:5px solid #0056b3;
+    padding-left:10px;
+}
+
+.info{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:25px;
+}
+
+.info td{
+    border:1px solid #ddd;
+    padding:12px;
+}
+
+.info td:first-child{
+    background:#0056b3;
+    color:white;
+    width:220px;
+    font-weight:bold;
+}
+
+.programme{
+    display:flex;
+    gap:20px;
+}
+
+.semestre{
+    flex:1;
+    background:#f8f9fa;
+    border-radius:8px;
+    padding:20px;
+    border:1px solid #ddd;
+}
+
+.semestre h3{
+    text-align:center;
+    color:#0056b3;
+    margin-bottom:15px;
+}
+
+.semestre ul{
+    padding-left:20px;
+}
+
+.semestre li{
+    margin-bottom:10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Licence Informatique</h1>
+
+<h2>Informations générales</h2>
+
+<table class="info">
+<tr>
+<td>Nom</td>
+<td>Licence Informatique</td>
+</tr>
+
+<tr>
+<td>Niveau</td>
+<td>Licence (Bac+3)</td>
+</tr>
+
+<tr>
+<td>Durée</td>
+<td>3 ans (6 semestres)</td>
+</tr>
+
+<tr>
+<td>Conditions d'admission</td>
+<td>Baccalauréat scientifique ou technique et étude du dossier.</td>
+</tr>
+
+<tr>
+<td>Débouchés</td>
+<td>
+Développeur Web, Développeur Logiciel,
+Administrateur Réseau,
+Administrateur Base de Données,
+Analyste Programmeur,
+Ingénieur Logiciel.
+</td>
+</tr>
 
 </table>
 
+<h2>Programme détaillé</h2>
 
+<div class="programme">
 
+<div class="semestre">
+<h3>Semestre 1</h3>
 
-{% endblock %}
+<ul>
+<li>Algorithmique</li>
+<li>Logique</li>
+<li>Mathématiques</li>
+</ul>
+
+</div>
+
+<div class="semestre">
+<h3>Semestre 2</h3>
+
+<ul>
+<li>POO (Programmation Orientée Objet)</li>
+<li>Python</li>
+<li>Base de données</li>
+<li>Système d'Exploitation</li>
+<li>Cybersécurité</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

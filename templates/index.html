@@ -1,206 +1,282 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/css/style.css">
+<title>UFR STA - Accueil</title>
 
-{% block title %}
-Accueil 
-{% endblock %}
+<style>
 
-{% block contenu %}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>UFR STA</h1>
-            <p>UAM &nbsp; / Sciences et Technologies Avancées</p>
-        </div>
-    </section>
+body{
+    background:#f4f4f4;
+}
 
-    <section class="slider">
-        <div class="slides">
-           <img src="{{ url_for('static', filename='images/groupe.jpeg') }}" alt="Groupe d'étudiants">
-           <img src="{{ url_for('static', filename='images/uam.png') }}" alt="Campus UAM">
-           <img src="{{ url_for('static', filename='images/passation.jpeg') }}" alt="Passation de service">
-           <img src="{{ url_for('static', filename='images/forum.jpeg') }}" alt="Forum UFR">
-        </div>
+/* Header */
 
-        <div class="indicators">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </section>
+header{
+    background:#003366;
+    color:white;
+    padding:20px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-    <div class="cards-container">
-        <div class="card">
-            <div class="card-icon">
-                <i class="fa-solid fa-crosshairs"></i>
-            </div>
-            <div class="card-content">
-                <h3>Notre Mission</h3>
-                <p>Offrir des formations innovantes adaptées aux besoins du marché de l'emploi, portées par un corps professoral qualifié et engagé, pour favoriser l'éclosion des jeunes talents, l'entrepreneuriat et le développement de startups.</p>
-            </div>
-        </div>
+.logo{
+    display:flex;
+    align-items:center;
+}
 
-        <div class="card">
-            <div class="card-icon">
-                <i class="fa-regular fa-lightbulb"></i>
-            </div>
-            <div class="card-content">
-                <h3>Notre Vision</h3>
-                <p>Être un creuset d'excellence académique pour le développement des talents, un véritable hub scientifique, technologique, numérique et d'innovation de référence en Afrique au service du développement socio-économique.</p>
-            </div>
-        </div>
+.logo img{
+    width:70px;
+    margin-right:15px;
+}
 
-        <div class="card">
-            <div class="card-icon">
-                <i class="fa-regular fa-gem"></i>
-            </div>
-            <div class="card-content">
-                <h3>Nos Valeurs</h3>
-                <p><strong>Excellence, Innovation, Engagement et Partenariat.</strong> Nous cultivons une dynamique partenariale forte avec les entreprises et institutions pour offrir un environnement propice à l'apprentissage et aux compétences.</p>
-            </div>
-        </div>
-    </div>
+.logo h1{
+    font-size:28px;
+}
 
-    <section class="recteur-section">
-        <div class="recteur-container">
-            <div class="recteur-photo-box">
-                <img src="{{ url_for('static', filename='images/derecteur.png') }}" alt="Dr Alioune Koulibaly" class="recteur-img">
-                <div class="recteur-info">
-                    <span class="recteur-nom">Dr Alioune Koulibaly</span>
-                    <span class="recteur-mandat">depuis décembre 2025</span>
-                </div>
-            </div>
-            
-            <div class="recteur-text-box">
-               <h2>Mot du Directeur</h2>
-                <p>L'Excellence au service du développement est le crédo de l'UFR Sciences et Technologies Avancées de l'Université Amadou Mahtar Mbow. Depuis deux ans, notre établissement met en œuvre cette vision novatrice à travers ses différentes filières et s'engage fermement à ériger et consolider ce label de qualité, afin de former des ressources humaines hautement qualifiées dont les compétences numériques et scientifiques répondent aux exigences du monde contemporain.</p>
-                <p>Aujourd'hui, l'UFR STA est pleinement engagée dans sa phase de croissance : elle relève avec dynamisme le défi d'accompagner l'évolution de ses effectifs étudiants tout en maintenant une rigueur académique d'exception dans ses laboratoires et espaces connectés. Pour porter avec succès cette ambition, nous consolidons notre stratégie de développement et explorons continuellement de nouveaux axes de recherche et d'apprentissage.</p>
-                <p>Cela se traduit par le renforcement de partenariats stratégiques avec le secteur industriel et technologique, ainsi que par la recherche de subventions et de projets collaboratifs auprès d'organismes d'innovation nationaux et internationaux...</p>
-                <a href="#" class="btn-voir-plus">Voir plus</a>
-            </div>
-        </div>
-    </section>
+nav ul{
+    list-style:none;
+    display:flex;
+}
 
-    <section class="formations-section">
-        <div class="formations-header">
-            <span>L'UFR STA COUVRE UN LARGE SPECTRE DE FORMATIONS SPÉCIALISÉES</span>
-            <h2>Découvrir nos formations</h2>
-        </div>
+nav ul li{
+    margin-left:25px;
+}
 
-        <div class="formations-container">
-            <div class="formation-card" style="background-image: url('{{ url_for('static', filename='images/mpi.jpeg') }}');">
-                <div class="formation-overlay">
-                    <div class="formation-content">
-                        <h3>MPI</h3>
-                        <p>Mathématiques, Physique et Informatique</p>
-                    </div>
-                </div>
-            </div>
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
 
-            <div class="formation-card" style="background-image: url('{{ url_for('static', filename='images/sml.jpeg') }}');">
-                <div class="formation-overlay">
-                    <div class="formation-content">
-                        <h3>SML</h3>
-                        <p>Filière Sciences de la Mer et du Littoral</p>
-                    </div>
-                </div>
-            </div>
+nav ul li a:hover{
+    color:gold;
+}
 
-            <div class="formation-card" style="background-image: url('{{ url_for('static', filename='images/miass.jpeg') }}');">
-                <div class="formation-overlay">
-                    <div class="formation-content">
-                        <h3>MIASS</h3>
-                        <p>Filière Mathématiques et Informatique Appliquées aux Sciences Sociales</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* Bannière */
 
-    <section class="management-section">
-        <div class="management-header">
-            <h2>Top Management</h2>
-        </div>
-        
-        <div class="management-container">
-            <div class="management-card">
-                <div class="management-photo-wrapper">
-                    <img src="{{ url_for('static', filename='images/derecteur.png') }}" alt="Dr. Alioune COULIBALY">
-                </div>
-                <div class="management-info">
-                    <h3>Dr. Alioune COULIBALY</h3>
-                    <p class="management-role">Directeur UFR STA</p>
-                </div>
-            </div>
+.banner{
+    background:#00509e;
+    color:white;
+    text-align:center;
+    padding:80px 20px;
+}
 
-            <div class="management-card">
-                <div class="management-photo-wrapper">
-                    <img src="{{ url_for('static', filename='images/siny.png') }}" alt="Dr. Siny Ndoye">
-                </div>
-                <div class="management-info">
-                    <h3>Dr. Siny Ndoye</h3>
-                    <p class="management-role">Directeur Adjoint UFR STA</p>
-                </div>
-            </div>
+.banner h2{
+    font-size:40px;
+    margin-bottom:20px;
+}
 
-            <div class="management-card">
-                <div class="management-photo-wrapper placeholder-black">
-                    <i class="fa-solid fa-user-large"></i>
-                </div>
-                <div class="management-info">
-                    <h3>Aïdara NGOM</h3>
-                    <p class="management-role">Chef Des Services Administratifs (CSA)</p>
-                </div>
-            </div>
-        </div>
-    </section>
+.banner p{
+    font-size:18px;
+}
 
-    <section class="news-section">
-        <div class="news-header">
-            <span>À LA UNE</span>
-            <h2>Suivre nos actualités</h2>
-        </div>
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    background:white;
+    color:#003366;
+    padding:12px 25px;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+}
 
-        <div class="news-container">
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/culturelle.jpeg') }}" alt="Journée culturelle">
-                </div>
-                <div class="news-content">
-                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 13 mai 2026</span>
-                    <h3>Journée culturelle organisée par l'amicale de l'UFR STA</h3>
-                    <div class="news-footer">
-                        <span class="news-category"><i class="fa-solid fa-book-open"></i> Actualités</span>
-                    </div>
-                </div>
-            </article>
+.btn:hover{
+    background:gold;
+}
 
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/inf.jpeg') }}" alt="Salle informatique">
-                </div>
-                <div class="news-content">
-                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 27 Juillet 2024</span>
-                    <h3>Inauguration de la salle informatique avec des ordinateurs de dernière génération</h3>
-                    <div class="news-footer">
-                        <span class="news-category"><i class="fa-solid fa-book-open"></i> Actualités</span>
-                    </div>
-                </div>
-            </article>
+/* Sections */
 
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/passation.jpeg') }}" alt="Cérémonie de passation">
-                </div>
-                <div class="news-content">
-                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 30 avril 2026</span>
-                    <h3>Cérémonie de passation de service au poste de directeur adjoint</h3>
-                    <div class="news-footer">
-                        <span class="news-category"><i class="fa-solid fa-book-open"></i> Actualités</span>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </section>
+section{
+    width:90%;
+    margin:40px auto;
+}
 
-{% endblock %}
+h2{
+    color:#003366;
+    margin-bottom:20px;
+}
+
+.carte{
+    background:white;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+/* Actualités */
+
+.actualites{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.news{
+    flex:1;
+    min-width:250px;
+    background:white;
+    border-radius:8px;
+    padding:20px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+.news h3{
+    color:#00509e;
+}
+
+footer{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+<img src="/static/images/logo.webp" alt="Logo UFR STA">
+
+<div>
+<h1>UFR STA</h1>
+<p>Sciences et Technologies Appliquées</p>
+</div>
+
+</div>
+
+<nav>
+
+<ul>
+
+<li><a href="index.html">Accueil</a></li>
+<li><a href="departements.html">Départements</a></li>
+<li><a href="formations.html">Formations</a></li>
+<li><a href="actualites.html">Actualités</a></li>
+<li><a href="galerie.html">Galerie</a></li>
+<li><a href="enseignants.html">Enseignants</a></li>
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="banner">
+
+<h2>Bienvenue sur le site officiel de l'UFR STA</h2>
+
+<p>Former les compétences de demain en Sciences et Technologies.</p>
+
+<a href="formations.html" class="btn">Découvrir nos formations</a>
+
+</section>
+
+<section>
+
+<h2>Mot du Directeur</h2>
+
+<div class="carte">
+
+<p>
+L'Excellence au service du développement est le crédo de l'UFR Sciences et Technologies Avancées de l'Université Amadou Mahtar Mbow. Depuis deux ans, notre établissement met en œuvre cette vision novatrice à travers ses différentes filières et s'engage fermement à ériger et consolider ce label de qualité, afin de former des ressources humaines hautement qualifiées dont les compétences numériques et scientifiques répondent aux exigences du monde contemporain.
+
+Aujourd'hui, l'UFR STA est pleinement engagée dans sa phase de croissance : elle relève avec dynamisme le défi d'accompagner l'évolution de ses effectifs étudiants tout en maintenant une rigueur académique d'exception dans ses laboratoires et espaces connectés. Pour porter avec succès cette ambition, nous consolidons notre stratégie de développement et explorons continuellement de nouveaux axes de recherche et d'apprentissage.
+
+Cela se traduit par le renforcement de partenariats stratégiques avec le secteur industriel et technologique, ainsi que par la recherche de subventions et de projets collaboratifs auprès d'organismes d'innovation nationaux et internationaux...
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Présentation de l'UFR</h2>
+
+<div class="carte">
+
+<p>
+L’UFR Sciences et Technologies Avancées (STA) de l’Université Amadou Mahtar Mbow (UAM) se positionne comme un véritable pôle d’excellence académique et d’innovation. Elle ambitionne de devenir un hub scientifique, technologique et numérique de référence en Afrique, au service du développement socio-économique du Sénégal et de la sous-région.
+
+Au cœur de cette vision, étudiants et acteurs du système universitaire évoluent dans un environnement stimulant et tourné vers l’avenir, fondé sur :
+
+des formations innovantes, en phase avec les besoins réels du marché de l’emploi ;
+un corps professoral hautement qualifié, engagé dans la transmission et la recherche ;
+des partenariats dynamiques et solides avec les entreprises, les institutions académiques et les centres de recherche, au niveau national et international ;
+un cadre d’apprentissage moderne et inspirant, favorisant l’acquisition de compétences, l’épanouissement des talents et l’émergence de l’esprit entrepreneurial.
+
+L’UFR STA est ainsi un espace où se construisent les compétences de demain et où naissent les futures startups et innovations au service du progrès.
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Dernières actualités</h2>
+
+<div class="actualites">
+
+<div class="news">
+
+<h3>Intelligence Artificielle</h3>
+
+<p>15 Avril 2026</p>
+
+<p>Organisation d'un séminaire sur l'IA générative animé par Mr Dahirou Gueye.</p>
+
+</div>
+
+<div class="news">
+
+<h3>Visite dess phenomenes de la mer par les eleves de la SML</h3>
+
+<p>01 Juin 2026</p>
+
+<p>Les eleves de la science de la mer et du littoral ont eu cette opportunite de faire la pratique au niveau de la mer.</p>
+
+</div>
+
+<div class="news">
+
+<h3>Visite des eleves de licence 3 Mathematiques a Mbour</h3>
+
+<p>20 Mai 2026</p>
+
+<p>Les étudiants ont eu l'occasion de visiter l'une des grandes ecoles en maths qui se trouve a Mbour.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>&copy; 2026 UFR STA - Université Amadou Mahtar MBOW</p>
+
+</footer>
+
+</body>
+</html>
