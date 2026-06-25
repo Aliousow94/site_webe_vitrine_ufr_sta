@@ -1,51 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}">
-
-
-    <title>{% block title %}{% endblock %}</title>
-
+    <title>{% block title %}UFR STA{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body>  
+    
     {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
+        {% if messages %}
+            <div class="flash-messages-container" style="padding: 10px; background-color: #f8d7da; color: #721c24;">
+                <ul style="margin: 0; padding-left: 20px;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
 
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                Bienvenue à l'UAM | Tél.: +221 33 844 10 00
+            </div>
+        </div>
 
+        <nav class="navbar">
+            <div class="container nav-content">
 
-    <h1>UFR STA</h1>
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo UAM">
+                </div>
 
-    <nav>
-        <a href="{{url_for('index')}}">Accueil</a>
-        <a href="{{url_for('departement')}}">Départements</a>
-        <a href="{{url_for('formation')}}">Formations</a>
-        <a href="{{url_for('actualites')}}">Actualites</a>
-        <a href="{{url_for('activites')}}">Activite</a>
-        <a href="{{url_for('gallery')}}">Gallery</a>
-        <a href="{{url_for('contact')}}">Contact</a>
+                <ul class="nav-menu">
+                    <li><a href="{{ url_for('index') }}">ACCUEIL</a></li>
+                    <li><a href="{{ url_for('formation') }}">FORMATIONS</a></li>
+                    <li><a href="{{ url_for('departement') }}">DEPARTEMENT</a></li>
+                    <li><a href="{{ url_for('actualites') }}">ACTUALITES</a></li>
+                    <li><a href="{{ url_for('activites') }}">ACTIVITES</a></li>
+                    <li><a href="{{ url_for('gallery') }}">GALERIES</a></li>
+                    <li><a href="{{ url_for('contact') }}">CONTACTS</a></li>
+                </ul>
+
+            </div>
+        </nav>
         
-    </nav>
+       
+    </header>
 
-    <hr>
+    <main class="content">
+        {% block contenu %}
+        {% endblock %}
+    </main>
 
-    {% block contenu %}
-    {% endblock %}
-
-    <hr>
-
-    <footer>
-        © 2026 - UFR STA
+    <footer class="site-footer">
+        <p>&copy; 2026 UFR Sciences et Technologies Avancées (STA)</p>
     </footer>
-
 </body>
 </html>
