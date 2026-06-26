@@ -720,3 +720,189 @@
     margin: 0; /* Supprime les marges par défaut du paragraphe */
     font-size: 14px; /* Ajuste la taille de la police selon vos besoins */
 }
+
+
+
+/* CONtact */
+.bandeau-bleu {
+    background-color: #0ea5d8; /* Bleu ajusté selon l'aperçu */
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bandeau-bleu h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- STRUCTURE DE CENTRAGE --- */
+.contact-wrapper {
+    max-width: 650px;       /* Largeur maximale du formulaire */
+    margin: 50px auto;      /* Centre le bloc horizontalement et ajoute de l'espace en haut/bas */
+    padding: 0 20px;        /* Évite que le formulaire touche les bords sur mobile */
+}
+
+/* --- FORMULAIRE --- */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;              /* Espace régulier entre chaque champ */
+    width: 100%;
+    align-items: center;    /* Centre le bouton à l'intérieur du formulaire */
+}
+
+.form-group {
+    width: 100%;
+}
+
+/* Style des champs (Inputs & Textarea) */
+.contact-form input, 
+.contact-form textarea {
+    width: 100%;
+    padding: 18px 25px;
+    background-color: #be6a3a; /* Couleur marron/ocre fidèle au modèle */
+    border: none;
+    border-radius: 12px;       /* Coins arrondis identiques à l'image */
+    color: white;
+    font-size: 1.05rem;
+    outline: none;
+    text-align: center;        /* Centre le texte écrit et le placeholder */
+}
+
+/* Style du texte d'aide (Placeholder) */
+.contact-form input::placeholder, 
+.contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Empêche la déformation horizontale du textarea */
+.contact-form textarea {
+    resize: vertical;
+}
+
+/* --- BOUTON ENVOYER --- */
+.btn-submit {
+    background-color: #b35924; /* Marron un peu plus soutenu */
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    border-radius: 30px;       /* Bouton très arrondi en forme de pilule */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Effets au survol et au clic */
+.btn-submit:hover {
+    background-color: #a04e1e;
+}
+
+.btn-submit:active {
+    transform: scale(0.98);    /* Léger effet d'enfoncement au clic */
+}
+
+
+/* Actualite */
+
+.bandeau-bleu {
+    background-color: #0ea5d8;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.bandeau-bleu h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- GRILLE CSS (Gère les 5 éléments) --- */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales sur grand écran */
+    gap: 30px;                             /* Espace entre les cartes */
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
+    padding: 0 20px;
+}
+
+/* --- DESIGN DE CHAQUE CARTE --- */
+.news-card {
+    background: white;
+    border: 1px solid #eef0f2;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- PHOTO --- */
+.news-photo {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.news-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- ZONE DE TEXTE --- */
+.news-content {
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* --- DATE --- */
+.news-date {
+    display: block;
+    color: #768390;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+/* --- TITRE --- */
+.news-title {
+    color: #111111;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* --- DESCRIPTION --- */
+.news-description {
+    color: #555555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur tablettes */
+    }
+}
+
+@media (max-width: 600px) {
+    .news-grid {
+        grid-template-columns: 1fr; /* 1 seule colonne sur mobile */
+    }
+}
