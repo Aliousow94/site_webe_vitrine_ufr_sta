@@ -1,16 +1,24 @@
 from flask import Flask , render_template,redirect,url_for,request,session
 from werkzeug.utils import secure_filename
 import os
-import mysql.connector
+import pymysql
+
 app=Flask(__name__)
+app.secret_key = "ufrsta"
+
 app.config["UPLOAD_FOLDER"] = "static/images"
-connexion=mysql.connector.connect(host="localhost",user="root",password="",database="ufr_sta")
-app.secret_key = "ufrsta2026"
+
+connexion=pymysql.connect(host="localhost",user="root",password="",database="ufr_sta"
+)
+
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
 @app.route("/formation")
 def formation():
+    
     return render_template("formation.html")
 @app.route("/departement")
 def departement():
@@ -27,6 +35,31 @@ def contact():
 @app.route("/gallery")
 def gallery():
     return render_template("gallery.html")
+@app.route("/admin/actualite")
+def liste_actualite():
+
+    curseur = connexion.cursor()
+
+    curseur.execute("""
+        SELECT *
+        FROM actualite
+    """)
+
+    actualite = curseur.fetchall()
+
+    return render_template(
+        "admin/liste_actualite.html",
+        actualite=actualite
+    )
+@app.route("/admin/dashboard")
+def dashboard():
+
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    return render_template("admin/dashboard.html")
+    
+
 @app.route("/admin/login", methods=["GET", "POST"])
 def login():
 
@@ -38,7 +71,8 @@ def login():
         curseur = connexion.cursor()
 
         sql = """
-        SELECT * FROM administrateur
+        SELECT *
+        FROM administrateur
         WHERE email=%s
         AND motdepasse=%s
         """
@@ -56,15 +90,15 @@ def login():
         return "Email ou mot de passe incorrect"
 
     return render_template("admin/login.html")
-@app.route("/admin/dashboard")
-def dashboard():
 
+
+
+
+@app.route("/admin/actualite/ajouter", methods=["GET", "POST"])
+def ajouter_actualite():
     if "admin" not in session:
         return redirect(url_for("login"))
 
-    return render_template("admin/dashboard.html")
-@app.route("/admin/actualites/ajouter", methods=["GET", "POST"])
-def ajouter_actualite():
 
     if request.method == "POST":
 
@@ -87,8 +121,8 @@ def ajouter_actualite():
 
         sql = """
         INSERT INTO actualite
-        (titre,date_publication,description,photo)
-        VALUES (%s,%s,%s,%s)
+        (titre, date_publication, description, photo)
+        VALUES (%s, %s, %s, %s)
         """
 
         curseur.execute(
@@ -103,29 +137,13 @@ def ajouter_actualite():
 
         connexion.commit()
 
-        return redirect(
-            url_for("dashboard")
-        )
+        return redirect(url_for("liste_actualite"))
 
-    return render_template(
-        "admin/ajouter_actualite.html"
-    )
-@app.route("/admin/actualites")
-def liste_actualite():
+    return render_template("admin/ajouter_actualite.html")
 
-    curseur = connexion.cursor()
 
-    curseur.execute("""
-        SELECT *
-        FROM actualite
-    """)
 
-    actualite = curseur.fetchall()
 
-    return render_template(
-        "admin/liste_actualite.html",
-        actualite=actualite
-    )
 if __name__ == "__main__":
-    app.run(debug=True)
     
+    app.run(debug=True)
