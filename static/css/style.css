@@ -1,0 +1,722 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+    
+}
+
+.container{
+    width:90%;
+    margin:auto;
+}
+
+
+
+
+/* Navigation */
+.navbar{
+    background:white;
+    padding:10px 0;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo img{
+    height:80px;
+}
+
+.nav-menu{
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+
+.nav-menu a{
+    text-decoration:none;
+    color:#1d1d1d;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.nav-menu a:hover{
+    color:#a94421;
+}
+.hero{
+    background:rgba(14, 165, 216, 0.85);
+    height:240px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero-content h1{
+    font-size:60px;
+    font-weight:bold;
+    margin-bottom:15px;
+    font-family: Georgia, serif;
+}
+
+.hero-content p{
+    font-size:24px;
+    font-weight:600;
+}
+
+
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.slider{
+    width:100%;
+    height:600px;
+    overflow:hidden;
+    position:relative;
+}
+
+.slides{
+    display:flex;
+    width:400%;
+    height:100%;
+    animation:slide 12s infinite ease-in-out;
+}
+
+.slides img{
+    width:100vw; /* toute la largeur de l'écran */
+    height:100%;
+    object-fit:cover; /* remplit tout l'espace */
+    flex-shrink:0;
+}
+
+/* Overlay sombre */
+.slide::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    z-index:1;
+}
+
+
+
+
+/* Barres */
+.indicators{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:12px;
+    z-index:5;
+}
+
+.indicators span{
+    width:35px;
+    height:4px;
+    background:white;
+    border-radius:50px;
+    opacity:.5;
+    animation:bars 12s infinite;
+}
+
+.indicators span:nth-child(2){
+    animation-delay:3s;
+}
+
+.indicators span:nth-child(3){
+    animation-delay:6s;
+}
+
+.indicators span:nth-child(4){
+    animation-delay:9s;
+}
+
+@keyframes slide{
+    0%,20%{
+        transform:translateX(0);
+    }
+
+    25%,45%{
+        transform:translateX(-25%);
+    }
+
+    50%,70%{
+        transform:translateX(-50%);
+    }
+
+    75%,95%{
+        transform:translateX(-75%);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
+}
+
+@keyframes bars{
+    0%,20%{
+        width:55px;
+        opacity:1;
+    }
+
+    25%,100%{
+        width:35px;
+        opacity:.5;
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+    .slider{
+        height:450px;
+    }
+
+    .caption h2{
+        font-size:32px;
+    }
+
+    .caption p{
+        font-size:16px;
+    }
+}
+
+
+
+
+
+
+
+
+.cards-container {
+    display: flex;
+    gap: 25px;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 38px auto 0 auto; /* 38px en haut (1cm), auto à droite et à gauche pour centrer */
+}
+.card {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    flex: 1;
+    min-width: 300px;
+    max-width: 380px;
+    border: 1px solid #f0f0f0;
+}
+
+/* Partie gauche : Icône */
+.card-icon {
+    background-color: #be5a2b; /* Teinte terre cuite d'origine */
+    color: #ffffff;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+/* Partie droite : Contenu textuel */
+.card-content {
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.card-content h3 {
+    font-size: 1.4rem;
+    color: #111111;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.card-content p {
+    font-size: 0.95rem;
+    color: #444444;
+    line-height: 1.5;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+
+
+
+
+.recteur-section {
+    background-color: #be5a2b; /* Teinte terre cuite */
+    padding: 60px 0;
+    width: 100%;
+    margin-top: 115px; /* Déplace tout le bloc marron de 3cm vers le bas */
+}
+
+.recteur-container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    display: table; /* Alternative robuste pour aligner sans flex au niveau parent */
+}
+
+/* Bloc Gauche - Photo */
+.recteur-photo-box {
+    display: table-cell;
+    vertical-align: middle;
+    width: 30%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.recteur-img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.recteur-info {
+    margin-top: 15px;
+}
+
+.recteur-nom {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #111111;
+}
+
+.recteur-mandat {
+    display: block;
+    font-size: 0.95rem;
+    color: #555555;
+    margin-top: 4px;
+}
+
+/* Espaceur horizontal entre les deux blocs de la table */
+.recteur-photo-box {
+    border-right: 30px solid transparent; /* Crée l'espace avec le bloc texte */
+}
+
+/* Bloc Droite - Message */
+.recteur-text-box {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #f5f5f5; /* Fond beige très clair / gris doux */
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.recteur-text-box h2 {
+    font-size: 1.8rem;
+    color: #111111;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.recteur-text-box p {
+    font-size: 1rem;
+    color: #333333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Bouton Voir Plus */
+.btn-voir-plus {
+    display: inline-block;
+    background-color: #be5a2b;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-voir-plus:hover {
+    background-color: #9c461f;
+}
+
+/* --- Gestion Responsive --- */
+@media (max-width: 768px) {
+    .recteur-photo-box, .recteur-text-box {
+        display: block;
+        width: 100%;
+    }
+    
+    .recteur-photo-box {
+        border-right: none;
+        margin-bottom: 25px;
+    }
+}
+
+
+
+
+
+/* --- Section Formations --- */
+.formations-section {
+    max-width: 1200px;
+    width: 90%;
+    margin: 75px auto; /* Espace de 2cm vertical */
+    text-align: center;
+}
+
+.formations-header span {
+    color: #9b442a;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.formations-header h2 {
+    font-size: 2.2rem;
+    color: #111111;
+    font-family: Georgia, serif;
+    margin-bottom: 40px;
+}
+
+/* Conteneur des 3 cartes de formations */
+.formations-container {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Style de la carte de formation */
+.formation-card {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 380px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Filtre de couleur par défaut (Rouge/Terre cuite transparent) */
+.formation-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(190, 90, 43, 0.85); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: background-color 0.4s ease; 
+}
+
+/* Effet au survol : le filtre passe au BLEU */
+.formation-card:hover .formation-overlay {
+    background-color: rgba(14, 165, 216, 0.85); 
+}
+
+/* Texte à l'intérieur de la carte */
+.formation-content {
+    color: #ffffff;
+    text-align: center;
+}
+
+.formation-content h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.formation-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.95;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .formation-card {
+        max-width: 100%;
+    }
+}
+
+
+
+
+/* --- Section Top Management --- */
+.management-section {
+    max-width: 1200px;
+    width: 90%;
+    margin: 115px auto 80px auto; /* 115px (3cm) d'espace avec la section précédente */
+}
+
+.management-header h2 {
+    font-size: 2.4rem;
+    color: #1a1a1a;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    margin-bottom: 45px;
+    text-align: left; /* Aligné à gauche comme sur l'image */
+}
+
+/* Alignement horizontal des 3 cadres */
+.management-container {
+    display: flex;
+    gap: 40px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Style de chaque profil */
+.management-card {
+    flex: 1;
+    min-width: 260px;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Zone carrée de la photo */
+.management-photo-wrapper {
+    width: 100%;
+    height: 340px;
+    background-color: #ffffff;
+    overflow: hidden;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.management-photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.management-photo-wrapper.placeholder-black i {
+    font-size: 9rem;
+    color: #ffffff;
+}
+
+/* Textes descriptifs sous la photo */
+.management-info {
+    text-align: center;
+}
+
+.management-info h3 {
+    font-size: 1.25rem;
+    color: #111111;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-family: Arial, sans-serif;
+}
+
+.management-role {
+    font-size: 0.95rem;
+    color: #666666;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* --- Adaptabilité Mobile --- */
+@media (max-width: 768px) {
+    .management-container {
+        justify-content: center;
+    }
+    .management-card {
+        max-width: 100%;
+    }
+}
+
+
+
+
+/* --- Section Actualités --- */
+.news-section {
+    max-width: 1200px;
+    width: 90%;
+    margin: 90px auto;
+}
+
+.news-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.news-header span {
+    color: #9b442a; /* Rouge terre cuite de l'UAM */
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.news-header h2 {
+    font-size: 2.3rem;
+    color: #111111;
+    font-family: Georgia, serif;
+    font-weight: 700;
+}
+
+/* Grille pour les 3 cartes */
+.news-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Style de chaque carte d'actualité */
+.news-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 370px;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.news-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-image img {
+    transform: scale(1.04);
+}
+
+.news-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.news-date {
+    font-size: 0.85rem;
+    color: #888888;
+    margin-bottom: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.news-content h3 {
+    font-size: 1.15rem;
+    color: #111111;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    font-family: Arial, sans-serif;
+    flex-grow: 1;
+}
+
+
+
+.news-category {
+    font-size: 0.85rem;
+    color: #555555;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.news-category i {
+    color: #9b442a;
+}
+
+/* --- Adaptabilité Écrans Tactiles & Mobiles --- */
+@media (max-width: 768px) {
+    .news-card {
+        max-width: 100%;
+    }
+}
+
+
+
+.content {
+    flex: 1 0 auto; /* Permet au contenu principal de remplir l'espace */
+}
+
+/* Styles pour le Pied de Page (Footer) */
+.site-footer {
+    background-color:#0ea5d8;
+    color: white; /* Couleur du texte (blanc pour contraste) */
+    text-align: center; /* Centrer le texte */
+    padding: 20px 0; /* Espacement intérieur haut/bas */
+    width: 100%;
+    flex-shrink: 0; /* Empêche le footer de rétrécir */
+}
+
+.site-footer p {
+    margin: 0; /* Supprime les marges par défaut du paragraphe */
+    font-size: 14px; /* Ajuste la taille de la police selon vos besoins */
+}

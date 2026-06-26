@@ -1,24 +1,51 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ufr-sta</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>  
+    
+    <header>
+       
 
-{% block title %}
-Accueil 
-{% endblock %}
+        <nav class="navbar">
+            <div class="container nav-content">
 
-{% block contenu %}
+                <div class="logo">
+                    <img src="../static/images/logo.webp" alt="Logo UAM">
+                </div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>UFR STA</h1>
-            <p>UAM &nbsp; / Sciences et Technologies Avancées</p>
-        </div>
-    </section>
+                <ul class="nav-menu">
+                    <li><a href="#">ACCUEIL</a></li>
+                    <li><a href="#">FORMATIONS</a></li>
+                    <li><a href="#">DEPARTEMENT</a></li>
+                    <li><a href="#">ACTUALITES</a></li>
+                    <li><a href="#">ACTIVITES</a></li>
+                    <li><a href="#">GALERIES</a></li>
+                    <li><a href="#">CONTACTS</a></li>
+                </ul>
 
+            </div>
+        </nav>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1>UFR STA</h1>
+                <p>UAM &nbsp; / Sciences et Technologies Avancées</p>
+            </div>
+        </section>
+    </header>
+    
     <section class="slider">
         <div class="slides">
-           <img src="{{ url_for('static', filename='images/groupe.jpeg') }}" alt="Groupe d'étudiants">
-           <img src="{{ url_for('static', filename='images/uam.png') }}" alt="Campus UAM">
-           <img src="{{ url_for('static', filename='images/passation.jpeg') }}" alt="Passation de service">
-           <img src="{{ url_for('static', filename='images/forum.jpeg') }}" alt="Forum UFR">
+           <img src="../static/images/groupe.jpeg" alt="">
+           <img src="../static/images/uam.png" alt="">
+           <img src="../static/images/passation.jpeg" alt="">
+           <img src="../static/images/forum.jpeg" alt="">
         </div>
 
         <div class="indicators">
@@ -64,10 +91,10 @@ Accueil
     <section class="recteur-section">
         <div class="recteur-container">
             <div class="recteur-photo-box">
-                <img src="{{ url_for('static', filename='images/derecteur.png') }}" alt="Dr Alioune Koulibaly" class="recteur-img">
+                <img src="../static/images/derecteur.png" alt="coulibaly" class="recteur-img">
                 <div class="recteur-info">
                     <span class="recteur-nom">Dr Alioune Koulibaly</span>
-                    <span class="recteur-mandat">depuis décembre 2025</span>
+                    <span class="recteur-mandat">depuis decembre 2025</span>
                 </div>
             </div>
             
@@ -88,16 +115,16 @@ Accueil
         </div>
 
         <div class="formations-container">
-            <div class="formation-card" style="background-image: url('{{ url_for('static', filename='images/mpi.jpeg') }}');">
+            <div class="formation-card" style="background-image: url('../static/images/mpi.jpeg');">
                 <div class="formation-overlay">
                     <div class="formation-content">
                         <h3>MPI</h3>
-                        <p>Mathématiques, Physique et Informatique</p>
+                        <p>Mathématiques , Physique et Informatique</p>
                     </div>
                 </div>
             </div>
 
-            <div class="formation-card" style="background-image: url('{{ url_for('static', filename='images/sml.jpeg') }}');">
+            <div class="formation-card" style="background-image: url('../static/images/sml.jpeg');">
                 <div class="formation-overlay">
                     <div class="formation-content">
                         <h3>SML</h3>
@@ -106,11 +133,12 @@ Accueil
                 </div>
             </div>
 
-            <div class="formation-card" style="background-image: url('{{ url_for('static', filename='images/miass.jpeg') }}');">
+             <div class="formation-card" style="background-image: url('../static/images/miass.jpeg');">
                 <div class="formation-overlay">
                     <div class="formation-content">
                         <h3>MIASS</h3>
-                        <p>Filière Mathématiques et Informatique Appliquées aux Sciences Sociales</p>
+                        <p>Filière Mathématiques et Informatique Appliquées aux Sciences Sociales
+                        </p>
                     </div>
                 </div>
             </div>
@@ -125,7 +153,7 @@ Accueil
         <div class="management-container">
             <div class="management-card">
                 <div class="management-photo-wrapper">
-                    <img src="{{ url_for('static', filename='images/derecteur.png') }}" alt="Dr. Alioune COULIBALY">
+                    <img src="../static/images/derecteur.png" alt="coulibaly">
                 </div>
                 <div class="management-info">
                     <h3>Dr. Alioune COULIBALY</h3>
@@ -135,7 +163,7 @@ Accueil
 
             <div class="management-card">
                 <div class="management-photo-wrapper">
-                    <img src="{{ url_for('static', filename='images/siny.png') }}" alt="Dr. Siny Ndoye">
+                    <img src="../static/images/siny.png" alt="siny">
                 </div>
                 <div class="management-info">
                     <h3>Dr. Siny Ndoye</h3>
@@ -144,10 +172,9 @@ Accueil
             </div>
 
             <div class="management-card">
-                <div class="management-photo-wrapper">
-                    <img src="{{ url_for('static', filename='images/aidara.jpg') }}" alt="Dr. Alioune COULIBALY">
+                <div class="management-photo-wrapper placeholder-black">
+                  <img src="../static/images/aidara.jpg" alt="aidara"> 
                 </div>
-                
                 <div class="management-info">
                     <h3>Aïdara NGOM</h3>
                     <p class="management-role">Chef Des Services Administratifs (CSA)</p>
@@ -155,7 +182,7 @@ Accueil
             </div>
         </div>
     </section>
-
+    
     <section class="news-section">
         <div class="news-header">
            
@@ -163,39 +190,49 @@ Accueil
         </div>
 
         <div class="news-container">
+            <!-- Article 1 -->
             <article class="news-card">
                 <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/culturelle.jpeg') }}" alt="Journée culturelle">
+                    <img src="../static/images/culturelle.jpeg" alt="journee">
                 </div>
                 <div class="news-content">
                     <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 13 mai 2026</span>
-                    <h3>Journée culturelle organisée par l'amicale de l'UFR STA</h3>
+                    <h3>Journée culturelle organisée par l'amical de  l'UFR STA</h3>
                     
                 </div>
             </article>
 
+            <!-- Article 2 -->
             <article class="news-card">
                 <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/inf.jpeg') }}" alt="Salle informatique">
+                    <img src="../static/images/inf.jpeg" alt="inauguration">
                 </div>
                 <div class="news-content">
                     <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 27 Juillet 2024</span>
-                    <h3>Inauguration de la salle informatique avec des ordinateurs de dernière génération</h3>
+                    <h3>Inauguration de la salle informatique avec des ordinateurs de derniere génération</h3>
                     
                 </div>
             </article>
 
+            <!-- Article 3 -->
             <article class="news-card">
                 <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/passation.jpeg') }}" alt="Cérémonie de passation">
+                    <img src="../static/images/passation.jpeg" alt="passation">
                 </div>
                 <div class="news-content">
-                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 30 avril 2026</span>
+                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 30 avril  2026</span>
                     <h3>Cérémonie de passation de service au poste de directeur adjoint</h3>
                     
                 </div>
             </article>
         </div>
+    
     </section>
+    <div class="content">
+        </div>
 
-{% endblock %}
+    <footer class="site-footer">
+        <p>&copy; {2026} UFR Sciences et Technologies Avancées(STA) </p>
+    </footer>
+</body>
+</html>
