@@ -3,6 +3,7 @@
     padding:0;
     box-sizing:border-box;
     font-family:Arial, sans-serif;
+    
 }
 
 .container{
@@ -10,15 +11,8 @@
     margin:auto;
 }
 
-/* Barre supérieure */
-.top-bar{
-    background:#0ea5d8;
-    color:white;
-    text-align:center;
-    padding:15px 0;
-    font-size:18px;
-    font-weight:500;
-}
+
+
 
 /* Navigation */
 .navbar{
@@ -54,7 +48,7 @@
     color:#a94421;
 }
 .hero{
-    background:#9b442a;
+    background:rgba(14, 165, 216, 0.85);
     height:240px;
     display:flex;
     justify-content:center;
@@ -553,11 +547,6 @@
     object-fit: cover;
 }
 
-/* Style silhouette noire pour le membre sans photo */
-.management-photo-wrapper.placeholder-black {
-    background-color: #000000;
-    border-radius: 4px;
-}
 
 .management-photo-wrapper.placeholder-black i {
     font-size: 9rem;
@@ -689,13 +678,7 @@
     flex-grow: 1;
 }
 
-/* Footer de la carte contenant uniquement le badge Actualités */
-.news-footer {
-    border-top: 1px solid #eeeeee;
-    padding-top: 15px;
-    display: flex;
-    align-items: center;
-}
+
 
 .news-category {
     font-size: 0.85rem;
