@@ -3,36 +3,6 @@
 formations
 {% endblock %}
 {% block contenu %}
-<a href="{{ url_for('ajouter') }}">
-    Ajouter une formation
-</a>
-
-<br><br>
-<h2>Liste des formations</h2>
-
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Niveau</th>
-        <th>Action</th>
-    </tr>
-
-    {% for formation in formations %}
-    <tr>
-        <td>{{ formation[0] }}</td>
-        <td>{{ formation[1] }}</td>
-        <td>{{ formation[2] }}</td>
-        <td>
-        <a href="{{ url_for('modifier', id=formation[0]) }}">
-            Modifier
-        </a>
-    </td>
-    </tr>
-    {% endfor %}
-
-</table>
-
 
 
 

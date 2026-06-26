@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}
+Liste Actualités
+{%endblock%}
+{%block contenu%}
+<h2>Gestion des Actualités</h2>
+
+<a href="{{ url_for('ajouter_actualite') }}">
+    Ajouter une actualité
+</a>
+
+<br><br>
+
+<table border="1">
+
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Photo</th>
+    </tr>
+
+    {% for actualite in actualite %}
+
+    <tr>
+
+        <td>{{ actualite[0] }}</td>
+
+        <td>{{ actualite[1] }}</td>
+
+        <td>{{ actualite[2] }}</td>
+
+        <td>{{ actualite[3] }}</td>
+
+        <td>
+
+            <img
+                src="{{ url_for('static',
+                                filename='images/' + actualite[4]) }}"
+                width="120">
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+
+
+{% endblock %}
