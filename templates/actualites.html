@@ -3,6 +3,67 @@
 Actualites
 {%endblock%}
 {%block contenu%}
+<div class="bandeau-bleu">
+    <h2>Actualité</h2>
+</div>
+
+<div class="news-grid">
+    
+    <article class="news-card">
+        <div class="news-photo">
+            <img src="{{ url_for('static', filename='images/conf2.JPG') }}" alt="Actualité 1">
+        </div>
+        <div class="news-content">
+            <time class="news-date">8 Avril, 2025</time>
+            <h3 class="news-title">Conférence scientifique </h3>
+            <p class="news-description">
+                Le 8 avril 2025, l’UFR Sciences et Technologies Avancées (UFR STA) a accueilli une conférence scientifique animée par Isabelle Brenon. Cette rencontre a mis en lumière les enjeux des systèmes littoraux semi-fermés et l’apport de la modélisation numérique dans leur étude. Elle a également permis de sensibiliser les participants aux défis environnementaux liés à la gestion durable des zones côtières.
+            </p>
+        </div>
+    </article>
+
+    <article class="news-card">
+        <div class="news-photo">
+            <img src="{{ url_for('static', filename='images/candidature.JPG') }}" alt="Actualité 2">
+        </div>
+        <div class="news-content">
+            <time class="news-date">4 juin, 2026</time>
+            <h3 class="news-title"> Recrutement d’un Enseignant-Chercheur en Mathématiques Appliquées</h3>
+            <p class="news-description">
+                L’Université Amadou Mahtar MBOW (UAM), à travers l’UFR Sciences et Technologies Avancées (STA), lance un appel à candidatures pour le recrutement d’un Enseignant-Chercheur en Mathématiques Appliquées. Ce recrutement s’adresse aux spécialistes en Statistique, Big Data et/ou Économétrie. Les candidatures sont ouvertes jusqu’au 15 juin 2026.
+            </p>
+        </div>
+    </article>
+
+    <article class="news-card">
+        <div class="news-photo">
+            <img src="{{ url_for('static', filename='images/conf1.jpeg') }}" alt="Actualité 3">
+        </div>
+        <div class="news-content">
+            <time class="news-date">20 avril, 2025</time>
+            <h3 class="news-title">Conférence scientifique : Les mathématiques au service de la communauté</h3>
+            <p class="news-description">
+                Le 30 avril 2025, l’UFR Sciences et Technologies Avancées (STA) a organisé une conférence scientifique animée par Abdou Sène. Cette rencontre a mis en lumière les applications des mathématiques dans la résolution de défis scientifiques et sociétaux. Elle a également favorisé les échanges autour de la recherche, de l’innovation et de la modélisation.
+            </p>
+        </div>
+    </article>
+
+    <article class="news-card">
+        <div class="news-photo">
+            <img src="{{ url_for('static', filename='images/appel.JPG') }}" alt="Actualité 4">
+        </div>
+        <div class="news-content">
+            <time class="news-date">20 mai, 2026</time>
+            <h3 class="news-title">Recrutement d’Enseignants-Chercheurs à l’UFR STA</h3>
+            <p class="news-description">
+                L’Université Amadou Mahtar MBOW (UAM) a lancé un appel à candidatures pour le recrutement de deux Enseignants-Chercheurs en Informatique et en Physique au sein de l’UFR Sciences et Technologies Avancées (STA). Cette initiative vise à renforcer les capacités d’enseignement et de recherche dans des domaines stratégiques. Les candidatures étaient ouvertes jusqu’au 16 mai 2026.
+            </p>
+        </div>
+    </article>
+
+    
+
+</div>
 
 
 {% endblock %}
