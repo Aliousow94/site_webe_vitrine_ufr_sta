@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+Modifier une actualité
+{% endblock %}
+
+{% block contenu %}
+
+<h2>Modifier une actualité</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <label>Titre :</label><br>
+    <input
+        type="text"
+        name="titre"
+        value="{{ actualite[1] }}"
+        required
+    >
+    <br><br>
+
+    <label>Date :</label><br>
+    <input
+        type="date"
+        name="date_publication"
+        value="{{ actualite[2] }}"
+        required
+    >
+    <br><br>
+
+    <label>Description :</label><br>
+
+    <textarea
+        name="description"
+        rows="6"
+        cols="50"
+    >{{ actualite[3] }}</textarea>
+
+    <br><br>
+
+    <p>Image actuelle :</p>
+
+    <img
+        src="{{ url_for('static', filename='images/' + actualite[4]) }}"
+        width="200"
+    >
+
+    <br><br>
+
+    <label>Nouvelle image (facultatif)</label><br>
+
+    <input
+        type="file"
+        name="photo"
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Enregistrer les modifications
+    </button>
+
+</form>
+
+{% endblock %}

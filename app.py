@@ -140,10 +140,139 @@ def ajouter_actualite():
         return redirect(url_for("liste_actualite"))
 
     return render_template("admin/ajouter_actualite.html")
+@app.route("/admin/actualites/modifier/<int:id>", methods=["GET", "POST"])
+def modifier_actualite(id):
 
+    if "admin" not in session:
+        return redirect(url_for("login"))
 
+    curseur = connexion.cursor()
 
+    if request.method == "POST":
 
+        titre = request.form["titre"]
+        date_publication = request.form["date_publication"]
+        description = request.form["description"]
+
+        
+        photo = request.files["photo"]
+
+        if photo.filename != "":
+
+            nom_photo = secure_filename(photo.filename)
+
+            photo.save(
+                os.path.join(
+                    app.config["UPLOAD_FOLDER"],
+                    nom_photo
+                )
+            )
+
+            sql = """
+            UPDATE actualite
+            SET titre=%s,
+                date_publication=%s,
+                description=%s,
+                photo=%s
+            WHERE id=%s
+            """
+
+            curseur.execute(
+                sql,
+                (
+                    titre,
+                    date_publication,
+                    description,
+                    nom_photo,
+                    id
+                )
+            )
+
+        else:
+
+            sql = """
+            UPDATE actualite
+            SET titre=%s,
+                date_publication=%s,
+                description=%s
+            WHERE id=%s
+            """
+
+            curseur.execute(
+                sql,
+                (
+                    titre,
+                    date_publication,
+                    description,
+                    id
+                )
+            )
+
+        connexion.commit()
+
+        return redirect(url_for("liste_actualite"))
+
+    curseur.execute(
+        "SELECT * FROM actualite WHERE id=%s",
+        (id,)
+    )
+
+    actualite = curseur.fetchone()
+
+    return render_template(
+        "admin/modifier_actualite.html",
+        actualite=actualite
+    )
+@app.route("/admin/actualites/supprimer/<int:id>", methods=["GET", "POST"])
+def suprimer_actualite(id):
+
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    curseur = connexion.cursor()
+
+    if request.method == "POST":
+
+        # Récupérer la photo
+        curseur.execute(
+            "SELECT photo FROM actualite WHERE id=%s",
+            (id,)
+        )
+
+        actualite = curseur.fetchone()
+
+        if actualite:
+
+            chemin = os.path.join(
+                app.config["UPLOAD_FOLDER"],
+                actualite[0]
+            )
+
+            if os.path.exists(chemin):
+                os.remove(chemin)
+
+        # Supprimer de la base
+        curseur.execute(
+            "DELETE FROM actualite WHERE id=%s",
+            (id,)
+        )
+
+        connexion.commit()
+
+        return redirect(url_for("liste_actualite"))
+
+    
+    curseur.execute(
+        "SELECT * FROM actualite WHERE id=%s",
+        (id,)
+    )
+
+    actualite = curseur.fetchone()
+
+    return render_template(
+        "admin/suprimer_actualite.html",
+        actualite=actualite
+    )
 if __name__ == "__main__":
     
     app.run(debug=True)

@@ -19,6 +19,10 @@ Liste Actualités
         <th>Date</th>
         <th>Description</th>
         <th>Photo</th>
+        <th>modifications</th>
+        <th>Supprimer</th>
+
+
     </tr>
 
     {% for actualite in actualite %}
@@ -40,6 +44,17 @@ Liste Actualités
                                 filename='images/' + actualite[4]) }}"
                 width="120">
 
+        </td>
+        <td>
+            <a href="{{ url_for('modifier_actualite', id=actualite[0]) }}">
+                Modifier
+            </a>
+        </td>
+        <td>
+            <a href="{{ url_for('suprimer_actualite', id=actualite[0]) }}"
+       onclick="return confirm('Voulez-vous vraiment supprimer cette actualité ?')">
+        Supprimer
+    </a>
         </td>
 
     </tr>
