@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Photos de l'album{% endblock %}
+
+{% block contenu %}
+<h2>Galerie : {{ album.titre }}</h2>
+<a href="{{ url_for('liste_galerie') }}">← Retour aux albums</a>
+
+<hr>
+
+<h3>Ajouter des photos à cet album</h3>
+<form action="{{ url_for('ajouter_photo_galerie', galerie_id=album.id) }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="photos" accept="image/*" multiple required>
+    <button type="submit">Uploader</button>
+</form>
+
+<hr>
+
+<h3>Photos actuelles</h3>
+<div class="galerie">
+    {% for photo in photos %}
+    <div class="photo-item">
+        <img src="{{ url_for('static', filename='uploads/galerie/' + photo.photo) }}" alt="Photo album" width="150">
+        <form action="{{ url_for('supprimer_photo_galerie', photo_id=photo.id) }}" method="POST">
+            <button type="submit" onclick="return confirm('Supprimer cette photo ?')">Supprimer</button>
+        </form>
+    </div>
+    {% else %}
+    <p>Aucune photo dans cet album pour le moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

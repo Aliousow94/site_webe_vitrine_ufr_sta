@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Créer un album{% endblock %}
+
+{% block contenu %}
+<h2>Créer un nouvel album</h2>
+
+<form method="POST">
+    <label>Titre de l'album :</label><br>
+    <input type="text" name="titre" required>
+    <br><br>
+
+    <label>Date de l'événement :</label><br>
+    <input type="date" name="date_album" required>
+    <br><br>
+
+    <label>Description :</label><br>
+    <textarea name="description" rows="4" cols="50"></textarea>
+    <br><br>
+
+    <button type="submit">Créer l'album</button>
+    <a href="{{ url_for('liste_galerie') }}">Annuler</a>
+</form>
+{% endblock %}

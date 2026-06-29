@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Gestion de la Galerie{% endblock %}
+
+{% block contenu %}
+<h2>Gestion des Albums Photos</h2>
+<a href="{{ url_for('ajouter_galerie') }}">+ Créer un nouvel album</a>
+<br><br>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    {% for alb in albums %}
+    <tr>
+        <td>{{ alb.id }}</td>
+        <td>{{ alb.titre }}</td>
+        <td>{{ alb.date_album }}</td>
+        <td>{{ alb.description }}</td>
+        <td>
+            <a href="{{ url_for('photos_galerie', galerie_id=alb.id) }}">Gérer les photos</a> | 
+            <form action="{{ url_for('supprimer_galerie', id=alb.id) }}" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Supprimer cet album et toutes ses photos ?')">Supprimer l'album</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5">Aucun album trouvé.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

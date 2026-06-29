@@ -1,43 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}
-Dashboard
-{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block contenu %}
-
 <h2>Administration UFR STA</h2>
 
-<p>
-Bienvenue {{ session["admin"] }}
-</p>
+<p>Bienvenue {{ session["admin"] }}</p>
 
 <ul>
-
-     <li>
-        <a href="{{url_for('liste_actualite')}}">
-            Gestion des Actualités
-        </a>
-    </li>
-
-    <li>
-        <a href="#">
-            Gestion des Activités
-        </a>
-    </li>
-
-    <li>
-        <a href="#">
-            Gestion des Formations
-        </a>
-    </li>
-
-    <li>
-        <a href="#">
-            Gestion de la Galerie
-        </a>
-    </li>
-
+    <li><a href="{{ url_for('liste_actualite') }}">Gestion des Actualités</a></li>
+    <li><a href="{{ url_for('liste_activite') }}">Gestion des Activités</a></li>
+    <li><a href="{{ url_for('liste_formation') }}">Gestion des Formations</a></li>
+    <li><a href="{{ url_for('liste_galerie') }}">Gestion de la Galerie</a></li>
+    <li><a href="{{ url_for('logout') }}" style="color: red;">Se déconnecter</a></li>
 </ul>
-
 {% endblock %}

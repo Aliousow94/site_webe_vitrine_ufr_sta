@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Modifier la formation{% endblock %}
+
+{% block contenu %}
+<h2>Modifier la formation</h2>
+
+<form method="POST">
+    <label>Nom :</label><br>
+    <input type="text" name="nom" value="{{ formation.nom }}" required><br><br>
+
+    <label>Niveau :</label><br>
+    <input type="text" name="niveau" value="{{ formation.niveau }}" required><br><br>
+
+    <label>Durée :</label><br>
+    <input type="text" name="duree" value="{{ formation.duree }}"><br><br>
+
+    <label>Département :</label><br>
+    <select name="departement_id">
+        <option value="">-- Aucun --</option>
+        {% for d in departements %}
+            <option value="{{ d.id }}" {% if d.id == formation.departement_id %}selected{% endif %}>
+                {{ d.nom }}
+            </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Conditions d'admission :</label><br>
+    <textarea name="admission" rows="4" cols="50">{{ formation.admission }}</textarea><br><br>
+
+    <label>Débouchés :</label><br>
+    <textarea name="debouches" rows="4" cols="50">{{ formation.debouches }}</textarea><br><br>
+
+    <label>Programme détaillé :</label><br>
+    <textarea name="programme" rows="6" cols="50">{{ formation.programme }}</textarea><br><br>
+
+    <button type="submit">Mettre à jour</button>
+    <a href="{{ url_for('liste_formation') }}">Annuler</a>
+</form>
+{% endblock %}

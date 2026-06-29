@@ -1,65 +1,37 @@
 {% extends "base.html" %}
-
-{% block title %}
-Modifier une actualité
-{% endblock %}
+{% block title %}Modifier une actualité{% endblock %}
 
 {% block contenu %}
-
 <h2>Modifier une actualité</h2>
 
 <form method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="ancienne_photo" value="{{ actualite.photo }}">
 
     <label>Titre :</label><br>
-    <input
-        type="text"
-        name="titre"
-        value="{{ actualite[1] }}"
-        required
-    >
+    <input type="text" name="titre" value="{{ actualite.titre }}" required>
     <br><br>
 
     <label>Date :</label><br>
-    <input
-        type="date"
-        name="date_publication"
-        value="{{ actualite[2] }}"
-        required
-    >
+    <input type="date" name="date_publication" value="{{ actualite.date_publication }}" required>
     <br><br>
 
     <label>Description :</label><br>
-
-    <textarea
-        name="description"
-        rows="6"
-        cols="50"
-    >{{ actualite[3] }}</textarea>
-
+    <textarea name="description" rows="6" cols="50">{{ actualite.description }}</textarea>
     <br><br>
 
     <p>Image actuelle :</p>
-
-    <img
-        src="{{ url_for('static', filename='images/' + actualite[4]) }}"
-        width="200"
-    >
-
+    {% if actualite.photo %}
+        <img src="{{ url_for('static', filename='uploads/actualites/' + actualite.photo) }}" width="200" alt="Image actuelle">
+    {% else %}
+        <p>Aucune image actuelle.</p>
+    {% endif %}
     <br><br>
 
-    <label>Nouvelle image (facultatif)</label><br>
-
-    <input
-        type="file"
-        name="photo"
-    >
-
+    <label>Nouvelle image (facultatif) :</label><br>
+    <input type="file" name="photo" accept="image/*">
     <br><br>
 
-    <button type="submit">
-        Enregistrer les modifications
-    </button>
-
+    <button type="submit">Enregistrer les modifications</button>
+    <a href="{{ url_for('liste_actualite') }}">Annuler</a>
 </form>
-
 {% endblock %}

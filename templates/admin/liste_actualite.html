@@ -1,66 +1,48 @@
 {% extends "base.html" %}
-{% block title %}
-Liste Actualités
-{%endblock%}
-{%block contenu%}
+{% block title %}Liste Actualités{% endblock %}
+
+{% block contenu %}
 <h2>Gestion des Actualités</h2>
-
-<a href="{{ url_for('ajouter_actualite') }}">
-    Ajouter une actualité
-</a>
-
+<a href="{{ url_for('ajouter_actualite') }}">Ajouter une actualité</a>
 <br><br>
 
 <table border="1">
-
     <tr>
         <th>ID</th>
         <th>Titre</th>
         <th>Date</th>
         <th>Description</th>
         <th>Photo</th>
-        <th>modifications</th>
+        <th>Modification</th>
         <th>Supprimer</th>
-
-
     </tr>
 
-    {% for actualite in actualite %}
-
+    {% for actualite in actualites %}
     <tr>
-
-        <td>{{ actualite[0] }}</td>
-
-        <td>{{ actualite[1] }}</td>
-
-        <td>{{ actualite[2] }}</td>
-
-        <td>{{ actualite[3] }}</td>
-
+        <td>{{ actualite.id }}</td>
+        <td>{{ actualite.titre }}</td>
+        <td>{{ actualite.date_publication }}</td>
+        <td>{{ actualite.description }}</td>
         <td>
-
-            <img
-                src="{{ url_for('static',
-                                filename='images/' + actualite[4]) }}"
-                width="120">
-
+            {% if actualite.photo %}
+                <img src="{{ url_for('static', filename='uploads/actualites/' + actualite.photo) }}" width="100" alt="Photo actualité">
+            {% else %}
+                Pas de photo
+            {% endif %}
         </td>
         <td>
-            <a href="{{ url_for('modifier_actualite', id=actualite[0]) }}">
-                Modifier
-            </a>
+            <a href="{{ url_for('modifier_actualite', id=actualite.id) }}">Modifier</a>
         </td>
         <td>
-            <a href="{{ url_for('suprimer_actualite', id=actualite[0]) }}"
-       onclick="return confirm('Voulez-vous vraiment supprimer cette actualité ?')">
-        Supprimer
-    </a>
+            <form action="{{ url_for('supprimer_actualite', id=actualite.id) }}" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette actualité ?')">Supprimer</button>
+            </form>
         </td>
-
     </tr>
-
+    {% else %}
+    <tr>
+        <td colspan="7">Aucune actualité trouvée.</td>
+    </tr>
     {% endfor %}
-
-
-
+</table>
 {% endblock %}

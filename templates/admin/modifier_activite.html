@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Modifier l'activité{% endblock %}
+
+{% block contenu %}
+<h2>Modifier l'activité</h2>
+
+<form method="POST">
+    <label>Titre :</label><br>
+    <input type="text" name="titre" value="{{ activite.titre }}" required>
+    <br><br>
+
+    <label>Date :</label><br>
+    <input type="date" name="date_activite" value="{{ activite.date_activite }}" required>
+    <br><br>
+
+    <label>Lieu :</label><br>
+    <input type="text" name="lieu" value="{{ activite.lieu }}" required>
+    <br><br>
+
+    <label>Organisateur :</label><br>
+    <input type="text" name="organisateur" value="{{ activite.organisateur }}">
+    <br><br>
+
+    <label>Description :</label><br>
+    <textarea name="description" rows="6" required>{{ activite.description }}</textarea>
+    <br><br>
+
+    <button type="submit">Mettre à jour</button>
+    <a href="{{ url_for('liste_activite') }}">Annuler</a>
+</form>
+{% endblock %}

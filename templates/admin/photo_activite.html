@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Galerie de l'activité{% endblock %}
+
+{% block contenu %}
+<h2>Galerie Photos : {{ activite.titre }}</h2>
+<a href="{{ url_for('liste_activite') }}">← Retour à la liste des activités</a>
+
+<hr>
+
+<h3>Ajouter des photos</h3>
+<form action="{{ url_for('ajouter_photo_activite', activite_id=activite.id) }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="photos" accept="image/*" multiple required>
+    <button type="submit">Uploader les photos</button>
+</form>
+
+<hr>
+
+<h3>Photos actuelles</h3>
+<div class="galerie">
+    {% for photo in photos %}
+    <div class="photo-item">
+        <img src="{{ url_for('static', filename='uploads/activites/' + photo.photo) }}" alt="Photo activité" width="150">
+        <form action="{{ url_for('supprimer_photo_activite', photo_id=photo.id) }}" method="POST">
+            <button type="submit" onclick="return confirm('Supprimer cette photo ?')">Supprimer</button>
+        </form>
+    </div>
+    {% else %}
+    <p>Aucune photo pour cette activité pour le moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

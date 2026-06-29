@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Liste Activités{% endblock %}
+
+{% block contenu %}
+<h2>Gestion des Activités</h2>
+<a href="{{ url_for('ajouter_activite') }}">+ Nouvelle activité</a>
+<br><br>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Date</th>
+        <th>Lieu</th>
+        <th>Organisateur</th>
+        <th>Actions</th>
+    </tr>
+    {% for act in activites %}
+    <tr>
+        <td>{{ act.id }}</td>
+        <td>{{ act.titre }}</td>
+        <td>{{ act.date_activite }}</td>
+        <td>{{ act.lieu }}</td>
+        <td>{{ act.organisateur }}</td>
+        <td>
+            <a href="{{ url_for('modifier_activite', id=act.id) }}">Modifier</a> | 
+            <a href="{{ url_for('gestion_photos_activite', activite_id=act.id) }}">Gérer les photos</a> | 
+            <form action="{{ url_for('supprimer_activite', id=act.id) }}" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Vraiment supprimer cette activité et ses photos ?')">Supprimer</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="6">Aucune activité trouvée.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

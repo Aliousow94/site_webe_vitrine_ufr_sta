@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Ajouter une activité{% endblock %}
+
+{% block contenu %}
+<h2>Ajouter une nouvelle activité</h2>
+
+<form method="POST">
+    <label>Titre :</label><br>
+    <input type="text" name="titre" required>
+    <br><br>
+
+    <label>Date :</label><br>
+    <input type="date" name="date_activite" required>
+    <br><br>
+
+    <label>Lieu :</label><br>
+    <input type="text" name="lieu" required>
+    <br><br>
+
+    <label>Organisateur :</label><br>
+    <input type="text" name="organisateur">
+    <br><br>
+
+    <label>Description :</label><br>
+    <textarea name="description" rows="6" required></textarea>
+    <br><br>
+
+    <button type="submit">Enregistrer l'activité</button>
+    <a href="{{ url_for('liste_activite') }}">Annuler</a>
+</form>
+{% endblock %}

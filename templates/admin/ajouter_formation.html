@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Ajouter une formation{% endblock %}
+
+{% block contenu %}
+<h2>Ajouter une nouvelle formation</h2>
+
+<form method="POST">
+    <label>Nom :</label><br>
+    <input type="text" name="nom" required><br><br>
+
+    <label>Niveau :</label><br>
+    <input type="text" name="niveau" required><br><br>
+
+    <label>Durée :</label><br>
+    <input type="text" name="duree"><br><br>
+
+    <label>Département :</label><br>
+    <select name="departement_id">
+        <option value="">-- Aucun --</option>
+        {% for d in departements %}
+            <option value="{{ d.id }}">{{ d.nom }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Conditions d'admission :</label><br>
+    <textarea name="admission" rows="4" cols="50"></textarea><br><br>
+
+    <label>Débouchés :</label><br>
+    <textarea name="debouches" rows="4" cols="50"></textarea><br><br>
+
+    <label>Programme détaillé :</label><br>
+    <textarea name="programme" rows="6" cols="50"></textarea><br><br>
+
+    <button type="submit">Enregistrer</button>
+    <a href="{{ url_for('liste_formation') }}">Annuler</a>
+</form>
+{% endblock %}
