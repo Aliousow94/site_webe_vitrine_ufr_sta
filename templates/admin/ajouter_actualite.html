@@ -1,27 +1,59 @@
-{% extends "base.html" %}
-{% block title %}Ajouter Actualité{% endblock %}
+{% extends "admin/base.html" %}
+{% block title %}Ajouter une actualité{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / <a href="{{ url_for('liste_actualite') }}">Actualités</a> / Ajouter{% endblock %}
 
 {% block contenu %}
-<h2>Ajouter une actualité</h2>
+<div class="page-header">
+    <h2>Ajouter une actualité</h2>
+    <a href="{{ url_for('liste_actualite') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Retour
+    </a>
+</div>
 
-<form method="POST" enctype="multipart/form-data">
-    <label>Titre</label><br>
-    <input type="text" name="titre" required>
-    <br><br>
+<div class="admin-card">
+    <div class="card-header"><h3><i class="bi bi-plus-circle"></i> Nouvelle actualité</h3></div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" class="admin-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input type="text" id="titre" name="titre" placeholder="Titre de l'actualité" required>
+                </div>
+                <div class="form-group">
+                    <label for="date_publication">Date de publication</label>
+                    <input type="date" id="date_publication" name="date_publication" required>
+                </div>
+            </div>
 
-    <label>Date</label><br>
-    <input type="date" name="date_publication" required>
-    <br><br>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="6" placeholder="Décrivez l'actualité..." required></textarea>
+            </div>
 
-    <label>Description</label><br>
-    <textarea name="description" rows="5" cols="40"></textarea>
-    <br><br>
+            <div class="form-group">
+                <label for="photo">Photo</label>
+                <div class="file-input-wrap">
+                    <input type="file" id="photo" name="photo" accept="image/*" required onchange="previewImage(this, 'previewImg')">
+                    <label for="photo" class="file-label">
+                        <i class="bi bi-cloud-upload"></i>
+                        <span>Cliquer pour choisir une photo</span>
+                    </label>
+                </div>
+                <div class="image-preview" id="previewContainer" style="display:none;">
+                    <img id="previewImg" src="" alt="Aperçu">
+                    <button type="button" class="preview-remove" onclick="removePreview('photo', 'previewImg')">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            </div>
 
-    <label>Photo</label><br>
-    <input type="file" name="photo" accept="image/*" required>
-    <br><br>
-
-    <button type="submit">Ajouter</button>
-    <a href="{{ url_for('liste_actualite') }}">Annuler</a>
-</form>
+            <div class="form-actions">
+                <a href="{{ url_for('liste_actualite') }}" class="btn btn-secondary">Annuler</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg"></i> Publier l'actualité
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

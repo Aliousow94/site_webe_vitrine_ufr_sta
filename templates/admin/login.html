@@ -1,19 +1,43 @@
-{% extends "base.html" %}
+{% extends "admin/base.html" %}
 
 {% block title %}Connexion Admin{% endblock %}
+{% block body_class %}login-page{% endblock %}
 
 {% block contenu %}
-<h2>Veuillez entrer vos identifiants :</h2>
+<div class="login-card">
+    <div class="login-header">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UFR STA" class="login-logo">
+        <h1>Espace Administration</h1>
+        <p>UFR STA — Université Assane Seck</p>
+    </div>
 
-<form method="POST">
-    <label>Email :</label><br>
-    <input type="email" name="email" required>
-    <br><br>
+    <form method="POST" class="login-form" id="loginForm">
+        <div class="form-group">
+            <label for="email">
+                <i class="bi bi-envelope-fill"></i> Adresse email
+            </label>
+            <input type="email" id="email" name="email" placeholder="admin@ufrsta.sn" required>
+        </div>
 
-    <label>Mot de passe :</label><br>
-    <input type="password" name="motdepasse" required>
-    <br><br>
+        <div class="form-group">
+            <label for="motdepasse">
+                <i class="bi bi-lock-fill"></i> Mot de passe
+            </label>
+            <div class="password-wrap">
+                <input type="password" id="motdepasse" name="motdepasse" placeholder="Votre mot de passe" required>
+                <button type="button" class="password-toggle" id="passwordToggle" aria-label="Afficher le mot de passe">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
+        </div>
 
-    <button type="submit">Se connecter</button>
-</form>
+        <button type="submit" class="btn btn-primary btn-block">
+            <i class="bi bi-box-arrow-in-right"></i> Se connecter
+        </button>
+    </form>
+
+    <a href="{{ url_for('index') }}" class="login-back">
+        <i class="bi bi-arrow-left"></i> Retour au site
+    </a>
+</div>
 {% endblock %}
