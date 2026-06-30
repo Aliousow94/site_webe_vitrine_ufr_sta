@@ -65,10 +65,10 @@
         </div>
     </aside>
 
-    <!-- Overlay sombre mobile -->
+    
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- ========== CONTENU PRINCIPAL ========== -->
+    
     <main class="admin-main">
         <!-- Barre du haut -->
         <header class="admin-topbar">
@@ -87,13 +87,13 @@
 </div>
         </header>
 
-        <!-- Zone de contenu -->
+        
         <section class="admin-content">
             {% block contenu %}{% endblock %}
         </section>
     </main>
 
-    <!-- ========== MODAL DE CONFIRMATION ========== -->
+   
     <div class="modal-overlay" id="confirmModal">
         <div class="modal-box">
             <div class="modal-icon-wrap">
@@ -110,10 +110,10 @@
         </div>
     </div>
 
-    <!-- ========== TOAST NOTIFICATIONS ========== -->
+    
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- JS Admin -->
+    
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 </body>
 </html>

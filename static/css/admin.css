@@ -1,11 +1,4 @@
-/* ============================================================
-   ADMIN CSS — UFR STA
-   Couleurs reprises du site public :
-   Bleu principal : #0ea5d8
-   Terre cuite    : #be5a2b
-   ============================================================ */
 
-/* --- Variables --- */
 :root {
     --sidebar-bg: #1e293b;
     --sidebar-hover: #334155;
@@ -43,7 +36,7 @@
     --transition: 0.2s ease;
 }
 
-/* --- Reset --- */
+
 *,
 *::before,
 *::after {
@@ -70,9 +63,7 @@ img {
     display: block;
 }
 
-/* ============================================================
-   SIDEBAR
-   ============================================================ */
+
 .admin-sidebar {
     position: fixed;
     top: 0;
@@ -86,7 +77,7 @@ img {
     transition: transform 0.3s ease;
 }
 
-/* En-tête sidebar */
+
 .sidebar-header {
     display: flex;
     align-items: center;
@@ -137,7 +128,7 @@ img {
     padding: 4px;
 }
 
-/* Navigation sidebar */
+
 .sidebar-nav {
     flex: 1;
     padding: 16px 12px;
@@ -203,13 +194,13 @@ img {
     background: rgba(248, 113, 113, 0.1) !important;
 }
 
-/* Pied sidebar */
+
 .sidebar-footer {
     padding: 12px;
     border-top: 1px solid rgba(255,255,255,0.08);
 }
 
-/* Overlay mobile */
+
 .sidebar-overlay {
     display: none;
     position: fixed;
@@ -225,9 +216,7 @@ img {
     display: block;
 }
 
-/* ============================================================
-   CONTENU PRINCIPAL
-   ============================================================ */
+
 .admin-main {
     margin-left: var(--sidebar-width);
     min-height: 100vh;
@@ -235,7 +224,7 @@ img {
     flex-direction: column;
 }
 
-/* Topbar */
+
 .admin-topbar {
     height: var(--topbar-height);
     background: var(--card-bg);
@@ -296,15 +285,13 @@ img {
     font-weight: 700;
 }
 
-/* Zone contenu */
+
 .admin-content {
     flex: 1;
     padding: 28px;
 }
 
-/* ============================================================
-   PAGE HEADER (titre + bouton action)
-   ============================================================ */
+
 .page-header {
     display: flex;
     align-items: center;
@@ -326,9 +313,7 @@ img {
     margin-top: 2px;
 }
 
-/* ============================================================
-   CARTES STATISTIQUES (Dashboard)
-   ============================================================ */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -414,9 +399,7 @@ img {
     color: var(--text-secondary);
 }
 
-/* ============================================================
-   CARDES ADMIN (conteneur blanc générique)
-   ============================================================ */
+
 .admin-card {
     background: var(--card-bg);
     border-radius: var(--radius-lg);
@@ -447,18 +430,14 @@ img {
     padding: 24px;
 }
 
-/* ============================================================
-   ACTIONS RAPIDES (Dashboard)
-   ============================================================ */
+
 .quick-actions {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
 }
 
-/* ============================================================
-   TABLEAUX
-   ============================================================ */
+
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -529,9 +508,7 @@ img {
     text-align: right;
 }
 
-/* ============================================================
-   BOUTONS
-   ============================================================ */
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -619,9 +596,7 @@ img {
     justify-content: center;
 }
 
-/* ============================================================
-   FORMULAIRES
-   ============================================================ */
+
 .admin-form {
     max-width: 800px;
 }
@@ -714,7 +689,7 @@ img {
     font-size: 1rem;
 }
 
-/* Champ fichier stylisé */
+
 .file-input-wrap {
     position: relative;
 }
@@ -762,7 +737,7 @@ img {
     color: var(--accent);
 }
 
-/* Aperçu image unique */
+
 .image-preview {
     margin-top: 12px;
     position: relative;
@@ -800,7 +775,7 @@ img {
     transform: scale(1.15);
 }
 
-/* Aperçu multiple */
+
 .multi-preview {
     display: flex;
     flex-wrap: wrap;
@@ -840,7 +815,7 @@ img {
     font-size: 0.7rem;
 }
 
-/* Image actuelle (modification) */
+
 .current-image {
     display: inline-block;
 }
@@ -853,7 +828,7 @@ img {
     object-fit: cover;
 }
 
-/* Mot de passe */
+
 .password-wrap {
     position: relative;
 }
@@ -879,9 +854,7 @@ img {
     color: var(--text-primary);
 }
 
-/* ============================================================
-   BADGE
-   ============================================================ */
+
 .badge {
     display: inline-block;
     padding: 3px 10px;
@@ -895,9 +868,7 @@ img {
     color: var(--accent);
 }
 
-/* ============================================================
-   GRILLE PHOTOS
-   ============================================================ */
+
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -960,9 +931,7 @@ img {
     background: var(--danger);
 }
 
-/* ============================================================
-   ÉTAT VIDE
-   ============================================================ */
+
 .empty-state {
     text-align: center;
     padding: 60px 20px;
@@ -988,9 +957,7 @@ img {
     font-size: 0.95rem;
 }
 
-/* ============================================================
-   MODAL DE CONFIRMATION
-   ============================================================ */
+
 .modal-overlay {
     display: none;
     position: fixed;
@@ -1063,9 +1030,7 @@ img {
     justify-content: center;
 }
 
-/* ============================================================
-   TOAST NOTIFICATIONS
-   ============================================================ */
+
 .toast-container {
     position: fixed;
     top: 20px;
@@ -1137,9 +1102,7 @@ img {
     }
 }
 
-/* ============================================================
-   PAGE DE CONNEXION
-   ============================================================ */
+
 .login-page {
     min-height: 100vh;
     display: flex;
@@ -1201,16 +1164,12 @@ img {
     color: var(--accent);
 }
 
-/* ============================================================
-   UTILITAIRES
-   ============================================================ */
+
 .mb-4 {
     margin-bottom: 24px;
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+
 @media (max-width: 1024px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);

@@ -37,15 +37,15 @@
                     <td>{{ act.lieu }}</td>
                     <td class="text-muted">{{ act.organisateur }}</td>
                     <td class="text-right">
-                        <!-- Bouton pour gérer les photos de l'activité -->
+                    
                         <a href="{{ url_for('gestion_photos_activite', activite_id=act.id) }}" class="btn btn-sm btn-info" title="Gérer les photos">
                             <i class="bi bi-camera"></i>
                         </a>
-                        <!-- Bouton modifier -->
+                        
                         <a href="{{ url_for('modifier_activite', id=act.id) }}" class="btn btn-sm btn-warning" title="Modifier">
                             <i class="bi bi-pencil"></i>
                         </a>
-                        <!-- Bouton supprimer -->
+                        
                         <form action="{{ url_for('supprimer_activite', id=act.id) }}" method="POST" style="display:inline;">
                             <button type="submit" class="btn btn-sm btn-danger" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer cette activité et toutes ses photos ?')">
                                 <i class="bi bi-trash3"></i>
