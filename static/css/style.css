@@ -906,3 +906,133 @@
         grid-template-columns: 1fr; /* 1 seule colonne sur mobile */
     }
 }
+
+              /*ENSEIGNANTS*/
+.bande-bleue {
+    background-color: #0099cc;
+    color: white;
+    text-align: center;
+    padding: 25px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bande-bleue h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+/* Zone principale */
+.section-professeurs {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.titre-section {
+    text-align: center;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.sous-titre {
+    text-align: center;
+    color:  #a04e1e;
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+/* Alignement en grille responsive pour les 5 profs */
+.grille-profs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Cartes individuelles */
+.carte-prof {
+    background-color: #a04e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #333333;
+}
+
+.carte-prof:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 153, 204, 0.2);
+    border-color: #0099cc;
+}
+
+/* Conteneur de l'image */
+.conteneur-photo {
+    width: 100%;
+    height: 260px;
+    background-color: #333;
+    overflow: hidden;
+}
+
+.photo-prof {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.carte-prof:hover .photo-prof {
+    transform: scale(1.03);
+}
+
+/* Bloc d'informations */
+.infos-prof {
+    padding: 20px;
+}
+
+.nom-prof {
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+}
+
+.grade-prof {
+    color: #0099cc;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.separateur {
+    border: 0;
+    height: 1px;
+    background: #444444;
+    margin: 15px 0;
+}
+
+.infos-prof p {
+    font-size: 0.95rem;
+    color: #cccccc;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.infos-prof strong {
+    color: #ffffff;
+}
+
+.infos-prof a {
+    color: #0099cc;
+    text-decoration: none;
+}
+
+.infos-prof a:hover {
+    text-decoration: underline;
+}
+
+.recherche {
+    margin-top: 12px;
+    font-style: italic;
+}

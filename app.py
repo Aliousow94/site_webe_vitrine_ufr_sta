@@ -29,6 +29,9 @@ def actualites():
 @app.route("/activites")
 def activites():
     return render_template("activites.html")
+@app.route("/enseignant")
+def enseignant():
+    return render_template("enseignant.html")
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
