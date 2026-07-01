@@ -1,51 +1,66 @@
-{% extends "base.html" %}
-{% block title %}
-Liste Actualités
-{%endblock%}
-{%block contenu%}
-<h2>Gestion des Actualités</h2>
+{% extends "admin/base.html" %}
+{% block title %}Actualités{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / Actualités{% endblock %}
 
-<a href="{{ url_for('ajouter_actualite') }}">
-    Ajouter une actualité
-</a>
+{% block contenu %}
+<div class="page-header">
+    <h2>Gestion des Actualités</h2>
+    <a href="{{ url_for('ajouter_actualite') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Ajouter une actualité
+    </a>
+</div>
 
-<br><br>
-
-<table border="1">
-
-    <tr>
-        <th>ID</th>
-        <th>Titre</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Photo</th>
-    </tr>
-
-    {% for actualite in actualite %}
-
-    <tr>
-
-        <td>{{ actualite[0] }}</td>
-
-        <td>{{ actualite[1] }}</td>
-
-        <td>{{ actualite[2] }}</td>
-
-        <td>{{ actualite[3] }}</td>
-
-        <td>
-
-            <img
-                src="{{ url_for('static',
-                                filename='images/' + actualite[4]) }}"
-                width="120">
-
-        </td>
-
-    </tr>
-
-    {% endfor %}
-
-
-
+{% if actualites|length == 0 %}
+<div class="empty-state">
+    <i class="bi bi-newspaper"></i>
+    <p>Aucune actualité publiée pour le moment.</p>
+    <a href="{{ url_for('ajouter_actualite') }}" class="btn btn-primary">Ajouter la première</a>
+</div>
+{% else %}
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Titre</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in actualites %}
+                <tr>
+                    <td>
+                        
+    <div style="width: 56px; height: 40px; border-radius: 6px; overflow: hidden; background: #f1f5f9;">
+        {% if a.photo %}
+        <img src="{{ url_for('static', filename='uploads/actualites/' ~ a.photo) }}" alt="{{ a.titre }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        {% else %}
+        <span style="font-size:0.7rem; color:#999; display:flex; align-items:center; justify-content:center; height:100%;">Pas de photo</span>
+        {% endif %}
+    </div>
+</td>
+                    
+                    <td class="font-semibold">{{ a.titre }}</td>
+                    <td>{{ a.date_publication }}</td>
+                    <td class="text-muted">{{ a.description[:80] }}{% if a.description|length > 80 %}...{% endif %}</td>
+                    <td class="text-right">
+                        <a href="{{ url_for('modifier_actualite', id=a.id) }}" class="btn btn-sm btn-warning" title="Modifier">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form action="{{ url_for('supprimer_actualite', id=a.id) }}" method="POST" style="display:inline;">
+    <button type="submit" class="btn btn-sm btn-danger" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ?')">
+        <i class="bi bi-trash3"></i>
+    </button>
+</form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

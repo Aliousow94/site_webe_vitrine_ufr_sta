@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+Supression d'actualités
+{% endblock %}
+{% block contenu %}
+<td>
+    <a href="{{ url_for('modifier_actualite', id=actualite[0]) }}">
+        Modifier
+    </a>
+</td>
+
+<td>
+    <a href="{{ url_for('suprimer_actualite', id=actualite[0]) }}"
+       onclick="return confirm('Voulez-vous vraiment supprimer cette actualité ?')">
+        Supprimer
+    </a>
+</td>
+
+
+
+{% endblock %}

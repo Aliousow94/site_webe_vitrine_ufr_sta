@@ -1,0 +1,58 @@
+{% extends "admin/base.html" %}
+{% block title %}Ajouter une activité{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / <a href="{{ url_for('liste_activite') }}">Activités</a> / Ajouter{% endblock %}
+
+{% block contenu %}
+<div class="page-header">
+    <h2>Ajouter une activité</h2>
+    <a href="{{ url_for('liste_activite') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Retour
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="card-header"><h3><i class="bi bi-plus-circle"></i> Nouvelle activité</h3></div>
+    <div class="card-body">
+        <form method="POST" class="admin-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="titre">Titre de l'activité</label>
+                    <input type="text" id="titre" name="titre" placeholder="Ex: Atelier IA Générative" required>
+                </div>
+                <div class="form-group">
+                    <label for="date_activite">Date</label>
+                    <input type="date" id="date_activite" name="date_activite" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="lieu">Lieu</label>
+                    <input type="text" id="lieu" name="lieu" placeholder="Ex: Salle Informatique" required>
+                </div>
+                <div class="form-group">
+                    <label for="organisateur">Organisateur</label>
+                    <input type="text" id="organisateur" name="organisateur" placeholder="Ex: Département Informatique" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description complète</label>
+                <textarea id="description" name="description" rows="6" placeholder="Décrivez l'activité en détail..." required></textarea>
+            </div>
+
+            <div class="form-info">
+                <i class="bi bi-info-circle"></i>
+                Vous pourrez ajouter les photos après avoir créé l'activité.
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('liste_activite') }}" class="btn btn-secondary">Annuler</a>
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-lg"></i> Créer l'activité
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

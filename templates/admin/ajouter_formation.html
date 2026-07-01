@@ -1,0 +1,73 @@
+{% extends "admin/base.html" %}
+{% block title %}Ajouter une formation{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / <a href="{{ url_for('liste_formation') }}">Formations</a> / Ajouter{% endblock %}
+
+{% block contenu %}
+<div class="page-header">
+    <h2>Ajouter une formation</h2>
+    <a href="{{ url_for('liste_formation') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Retour
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="card-header"><h3><i class="bi bi-plus-circle"></i> Nouvelle formation</h3></div>
+    <div class="card-body">
+        <form method="POST" class="admin-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nom">Nom de la formation</label>
+                    <input type="text" id="nom" name="nom" placeholder="Ex: Licence Informatique" required>
+                </div>
+                <div class="form-group">
+                    <label for="niveau">Niveau</label>
+                    <select id="niveau" name="niveau" required>
+                        <option value="">-- Choisir --</option>
+                        <option value="Licence">Licence</option>
+                        <option value="Master">Master</option>
+                        <option value="Doctorat">Doctorat</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="duree">Durée</label>
+                    <input type="text" id="duree" name="duree" placeholder="Ex: 3 ans" required>
+                </div>
+                <div class="form-group">
+                    <label for="departement_id">Département</label>
+                    <select id="departement_id" name="departement_id">
+                        <option value="">-- Aucun --</option>
+                        {% for d in departements %}
+                        <option value="{{ d.id }}">{{ d.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="admission">Conditions d'admission</label>
+                <textarea id="admission" name="admission" rows="3" placeholder="Conditions requises pour intégrer la formation..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="debouches">Débouchés</label>
+                <textarea id="debouches" name="debouches" rows="3" placeholder="Perspectives professionnelles après le diplôme..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="programme">Programme détaillé</label>
+                <textarea id="programme" name="programme" rows="8" placeholder="Décrivez le programme par semestre (ex: Semestre 1 : Algorithmique, POO...)..." required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('liste_formation') }}" class="btn btn-secondary">Annuler</a>
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-check-lg"></i> Créer la formation
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
