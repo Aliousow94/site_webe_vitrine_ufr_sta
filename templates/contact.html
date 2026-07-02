@@ -8,18 +8,18 @@ Contact
 </div>
 
 <div class="contact-wrapper">
-    <form class="contact-form">
+    <form class="contact-form" method="POST">
         <div class="form-group">
-            <input type="text" placeholder="Votre nom" required>
+            <input type="text" name="nom" placeholder="Votre nom" required>
         </div>
         <div class="form-group">
-            <input type="email" placeholder="adresse email" required>
+            <input type="email" name="email" placeholder="adresse email" required>
         </div>
         <div class="form-group">
-            <input type="text" placeholder="Sujet" required>
+            <input type="text" name="sujet" placeholder="Sujet" required>
         </div>
         <div class="form-group">
-            <textarea placeholder="Ecrire un message" rows="6" required></textarea>
+            <textarea name="message" placeholder="Ecrire un message" rows="6" required></textarea>
         </div>
         <button type="submit" class="btn-submit">Envoyer un message</button>
     </form>

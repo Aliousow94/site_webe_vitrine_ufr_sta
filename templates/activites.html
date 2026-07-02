@@ -1,8 +1,66 @@
 {% extends "base.html" %}
-{% block title %}
-Activite
-{%endblock%}
-{%block contenu%}
+{% block title %}Activités de l'UFR STA{% endblock %}
 
+{% block contenu %}
+<!-- Bandeau bleu -->
+<div class="bandeau-bleu">
+    <h2>Journal des Activités</h2>
+</div>
 
+<div class="news-section">
+    <div class="news-header">
+        <span>Découvrez notre vie étudiante</span>
+        <h2>Activités & Événements</h2>
+    </div>
+
+    {% if activites|length == 0 %}
+    <div class="activite-empty">
+        <p>Aucune activité publiée pour le moment.</p>
+    </div>
+    {% else %}
+    <div class="activite-grid">
+        {% for act in activites %}
+        <div class="activite-card">
+            
+            <!-- Grande Image Principale -->
+            <div class="activite-img-main">
+                {% if act.photos %}
+                    <img src="{{ url_for('static', filename='uploads/activites/' ~ act.photos[0]['photo']) }}" alt="{{ act.titre }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/400x240?text=Activite" alt="Pas de photo">
+                {% endif %}
+            </div>
+
+            <!-- Miniatures horizontales (si plusieurs photos) -->
+            {% if act.photos|length > 1 %}
+            <div class="activite-mini-bande">
+                {% for p in act.photos[1:] %}
+                <img src="{{ url_for('static', filename='uploads/activites/' ~ p.photo) }}" alt="Photo" class="activite-mini">
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Texte -->
+            <div class="activite-body">
+                <!-- Métadonnées -->
+                <div class="activite-meta">
+                    <span><i class="bi bi-calendar3"></i> {{ act.date_activite }}</span>
+                    <span><i class="bi bi-geo-alt"></i> {{ act.lieu }}</span>
+                    <span><i class="bi bi-person-fill"></i> {{ act.organisateur }}</span>
+                </div>
+
+                <!-- Titre -->
+                <h3 class="activite-titre">{{ act.titre }}</h3>
+
+                <!-- Description -->
+                <p class="activite-desc">
+                    {{ act.description[:250] }}{% if act.description|length > 250 %}...{% endif %}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
 {% endblock %}

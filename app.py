@@ -21,7 +21,18 @@ def get_db_connection():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    
+    
+    curseur.execute("SELECT * FROM actualite ORDER BY date_publication DESC LIMIT 3")
+    dernieres_actualites = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("index.html", dernieres_actualites=dernieres_actualites)
+
 
 @app.route("/formation")
 def formation():
@@ -29,18 +40,81 @@ def formation():
 
 @app.route("/departement")
 def departement():
-    return render_template("departement.html")
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    
+    # Récupérer tous les départements
+    curseur.execute("SELECT * FROM departement ORDER BY nom ASC")
+    departements = curseur.fetchall()
+    
+    # BONUS : Récupérer les formations pour les lier à leurs départements
+    curseur.execute("""
+        SELECT f.*, d.nom as nom_departement 
+        FROM formation f 
+        LEFT JOIN departement d ON f.departement_id = d.id
+    """)
+    toutes_formations = curseur.fetchall()
+   
+    formations_par_dept = {}
+    for f in toutes_formations:
+        if f['departement_id']:
+            dept_id = f['departement_id']
+            if dept_id not in formations_par_dept:
+                formations_par_dept[dept_id] = []
+            formations_par_dept[dept_id].append(f)
+
+    curseur.close()
+    connexion.close()
+    
+    return render_template("departement.html", departements=departements, formations_par_dept=formations_par_dept)
 
 @app.route("/actualites")
 def actualites():
-    return render_template("actualites.html")
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    curseur.execute("SELECT * FROM actualite ORDER BY date_publication DESC")
+    actualites = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("actualites.html", actualites=actualites)
 
 @app.route("/activites")
 def activites():
-    return render_template("activites.html")
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    
+    
+    curseur.execute("SELECT * FROM activite ORDER BY date_activite,id DESC")
+    activites = curseur.fetchall()
+    
+    
+    for act in activites:
+        curseur.execute("SELECT photo FROM photo_activite WHERE id_activite=%s", (act['id'],))
+        act['photos'] = curseur.fetchall()
+        
+    curseur.close()
+    connexion.close()
+    return render_template("activites.html",activites=activites)
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
+    if request.method == "POST":
+        nom = request.form["nom"]
+        email = request.form["email"]
+        sujet = request.form["sujet"]
+        message = request.form["message"]
+
+        connexion = get_db_connection()
+        curseur = connexion.cursor()
+        sql = "INSERT INTO contact (nom, email, sujet, message) VALUES (%s, %s, %s, %s)"
+        curseur.execute(sql, (nom, email, sujet, message))
+        connexion.commit()
+        curseur.close()
+        connexion.close()
+        
+        return redirect(url_for("contact"))
     return render_template("contact.html")
 
 @app.route("/gallery")
@@ -618,6 +692,120 @@ def supprimer_formation(id):
     connexion.close()
 
     return redirect(url_for("liste_formation"))
+@app.route("/admin/contact")
+def liste_contact():
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    curseur.execute("SELECT * FROM contact ORDER BY date_envoi DESC")
+    contacts = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("admin/liste_contact.html", contacts=contacts)
+@app.route("/admin/contact/supprimer/<int:id>", methods=["POST"])
+def supprimer_contact(id):
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    curseur.execute("DELETE FROM contact WHERE id=%s", (id,))
+    connexion.commit()
+    
+    curseur.close()
+    connexion.close()
+
+    return redirect(url_for("liste_contact"))
+
+
+@app.route("/admin/departement")
+def liste_departement():
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    curseur.execute("SELECT * FROM departement ORDER BY nom ASC")
+    departements = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("admin/liste_departement.html", departements=departements)
+
+@app.route("/admin/departement/ajouter", methods=["GET", "POST"])
+def ajouter_departement():
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        nom = request.form["nom"]
+        description = request.form["description"]
+        responsable = request.form["responsable"]
+        contact = request.form["contact"]
+
+        connexion = get_db_connection()
+        curseur = connexion.cursor()
+        sql = "INSERT INTO departement (nom, description, responsable, contact) VALUES (%s, %s, %s, %s)"
+        curseur.execute(sql, (nom, description, responsable, contact))
+        connexion.commit()
+        
+        curseur.close()
+        connexion.close()
+
+        return redirect(url_for("liste_departement"))
+
+    return render_template("admin/ajouter_departement.html")
+
+@app.route("/admin/departement/modifier/<int:id>", methods=["GET", "POST"])
+def modifier_departement(id):
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+
+    if request.method == "POST":
+        nom = request.form["nom"]
+        description = request.form["description"]
+        responsable = request.form["responsable"]
+        contact = request.form["contact"]
+
+        sql = "UPDATE departement SET nom=%s, description=%s, responsable=%s, contact=%s WHERE id=%s"
+        curseur.execute(sql, (nom, description, responsable, contact, id))
+        connexion.commit()
+        
+        curseur.close()
+        connexion.close()
+
+        return redirect(url_for("liste_departement"))
+
+    curseur.execute("SELECT * FROM departement WHERE id=%s", (id,))
+    departement = curseur.fetchone()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("admin/modifier_departement.html", departement=departement)
+
+@app.route("/admin/departement/supprimer/<int:id>", methods=["POST"])
+def supprimer_departement(id):
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    curseur.execute("DELETE FROM departement WHERE id=%s", (id,))
+    connexion.commit()
+    
+    curseur.close()
+    connexion.close()
+
+    return redirect(url_for("liste_departement"))
 @app.route("/admin/logout")
 def logout():
     session.pop("admin", None)

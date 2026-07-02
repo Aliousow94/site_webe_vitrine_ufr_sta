@@ -1271,3 +1271,17 @@ img {
         padding: 10px 12px;
     }
 }
+.stat-violet::before { background: #7c3aed; }
+.stat-violet .stat-icon { background: rgba(124, 58, 237, 0.12); color: #7c3aed; }
+.stat-indigo::before { background: #6366f1; }
+.stat-indigo .stat-icon { background: rgba(99, 102, 241, 0.12); color: #6366f1; }
+.btn-indigo {
+    background: #6366f1;
+    color: #ffffff;
+}
+
+.btn-indigo:hover {
+    background: #4f46e5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
