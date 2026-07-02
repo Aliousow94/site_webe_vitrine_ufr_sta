@@ -8,6 +8,7 @@ Actualites
 </div>
 
 <div class="news-grid">
+
     {% if actualites|length == 0 %}
         <p style="text-align: center; color: #666; grid-column: 1 / -1; padding: 40px;">Aucune actualité publiée pour le moment.</p>
     {% else %}
@@ -31,6 +32,11 @@ Actualites
         </article>
         {% endfor %}
     {% endif %}
+
+    
+    
+
+
 </div>
 
 {% endblock %}

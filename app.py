@@ -36,8 +36,42 @@ def index():
 
 @app.route("/formation")
 def formation():
-    return render_template("formation.html")
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
 
+    # Récupérer les départements
+    curseur.execute("SELECT * FROM departement ORDER BY nom ASC")
+    departements = curseur.fetchall()
+
+    # Récupérer les formations avec le nom de leur département
+    curseur.execute("""
+        SELECT f.*, d.nom as nom_departement 
+        FROM formation f 
+        LEFT JOIN departement d ON f.departement_id = d.id
+        ORDER BY d.nom ASC, f.niveau ASC
+    """)
+    formations = curseur.fetchall()
+
+    # Regrouper les formations par département
+    formations_par_dept = {}
+    for f in formations:
+        dept_id = f.get('departement_id')
+        if dept_id:
+            if dept_id not in formations_par_dept:
+                formations_par_dept[dept_id] = {
+                    'nom_departement': f['nom_departement'],
+                    'formations': []
+                }
+            formations_par_dept[dept_id]['formations'].append(f)
+        else:
+            if 'sans_dept' not in formations_par_dept:
+                formations_par_dept['sans_dept'] = {'nom_departement': 'Autres formations', 'formations': []}
+            formations_par_dept['sans_dept']['formations'].append(f)
+
+    curseur.close()
+    connexion.close()
+    
+    return render_template("formation.html", formations_par_dept=formations_par_dept)
 @app.route("/departement")
 def departement():
     connexion = get_db_connection()
@@ -82,6 +116,7 @@ def actualites():
 
 @app.route("/activites")
 def activites():
+
     connexion = get_db_connection()
     curseur = connexion.cursor()
     
@@ -97,8 +132,29 @@ def activites():
     curseur.close()
     connexion.close()
     return render_template("activites.html",activites=activites)
+@app.route("/enseignant")
+def enseignant():
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    
+    
+    sql = """
+        SELECT e.*, d.nom as nom_departement 
+        FROM enseignant e 
+        LEFT JOIN departement d ON e.departement_id = d.id
+        ORDER BY e.nom ASC
+    """
+    curseur.execute(sql)
+    enseignants = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("enseignant.html", enseignants=enseignants)
 
-@app.route("/contact", methods=["GET", "POST"])
+
+@app.route("/contact")
+
 def contact():
     if request.method == "POST":
         nom = request.form["nom"]
@@ -610,14 +666,22 @@ def ajouter_formation():
         duree = request.form["duree"]
         admission = request.form["admission"]
         debouches = request.form["debouches"]
-        programme = request.form["programme"]
         departement_id = request.form.get("departement_id") or None
+
+        # ASSEMBLAGE DU PROGRAMME : On récupère les 6 semestres et on les structure
+        programme_final = ""
+        for i in range(1, 7):
+            champ = request.form.get(f"sem{i}", "").strip()
+            if champ:
+                programme_final += f"Semestre {i} :\n{champ}\n\n"
+        
+        programme_final = programme_final.strip() # Enlève le saut de ligne à la fin
 
         sql = """
         INSERT INTO formation (nom, niveau, duree, admission, debouches, programme, departement_id) 
         VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
-        curseur.execute(sql, (nom, niveau, duree, admission, debouches, programme, departement_id))
+        curseur.execute(sql, (nom, niveau, duree, admission, debouches, programme_final, departement_id))
         connexion.commit()
         
         curseur.close()
@@ -625,7 +689,6 @@ def ajouter_formation():
 
         return redirect(url_for("liste_formation"))
 
-    
     curseur.execute("SELECT * FROM departement")
     departements = curseur.fetchall()
     
@@ -633,7 +696,6 @@ def ajouter_formation():
     connexion.close()
 
     return render_template("admin/ajouter_formation.html", departements=departements)
-
 # 3. Modifier une formation
 @app.route("/admin/formation/modifier/<int:id>", methods=["GET", "POST"])
 def modifier_formation(id):
@@ -806,6 +868,135 @@ def supprimer_departement(id):
     connexion.close()
 
     return redirect(url_for("liste_departement"))
+
+# --- GESTION DES ENSEIGNANTS (ADMIN) ---
+
+@app.route("/admin/enseignant")
+def liste_enseignant():
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    # Jointure pour récupérer le nom du département au lieu de juste l'ID
+    sql = """
+        SELECT e.*, d.nom as nom_departement 
+        FROM enseignant e 
+        LEFT JOIN departement d ON e.departement_id = d.id
+        ORDER BY e.nom ASC
+    """
+    curseur.execute(sql)
+    enseignants = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("admin/liste_enseignant.html", enseignants=enseignants)
+
+@app.route("/admin/enseignant/ajouter", methods=["GET", "POST"])
+def ajouter_enseignant():
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        nom = request.form["nom"]
+        grade = request.form["grade"]
+        departement_id = request.form.get("departement_id") or None
+        email = request.form["email"]
+        domaine_recherche = request.form["domaine_recherche"]
+        
+        photo = request.files["photo"]
+        nom_photo = ""
+        if photo and photo.filename != "":
+            nom_photo = secure_filename(photo.filename)
+            photo.save(os.path.join('static/uploads/enseignants', nom_photo))
+
+        connexion = get_db_connection()
+        curseur = connexion.cursor()
+        sql = "INSERT INTO enseignant (nom, grade, departement_id, email, domaine_recherche, photo) VALUES (%s, %s, %s, %s, %s, %s)"
+        curseur.execute(sql, (nom, grade, departement_id, email, domaine_recherche, nom_photo))
+        connexion.commit()
+        
+        curseur.close()
+        connexion.close()
+
+        return redirect(url_for("liste_enseignant"))
+
+    # Récupérer la liste des départements pour le menu déroulant
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    curseur.execute("SELECT * FROM departement ORDER BY nom ASC")
+    departements = curseur.fetchall()
+    curseur.close()
+    connexion.close()
+
+    return render_template("admin/ajouter_enseignant.html", departements=departements)
+
+@app.route("/admin/enseignant/modifier/<int:id>", methods=["GET", "POST"])
+def modifier_enseignant(id):
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+
+    if request.method == "POST":
+        nom = request.form["nom"]
+        grade = request.form["grade"]
+        departement_id = request.form.get("departement_id") or None
+        email = request.form["email"]
+        domaine_recherche = request.form["domaine_recherche"]
+        
+        nom_photo = request.form.get("ancienne_photo")
+        photo = request.files["photo"]
+        
+        if photo and photo.filename != "":
+            nom_photo = secure_filename(photo.filename)
+            photo.save(os.path.join('static/uploads/enseignants', nom_photo))
+
+        sql = "UPDATE enseignant SET nom=%s, grade=%s, departement_id=%s, email=%s, domaine_recherche=%s, photo=%s WHERE id=%s"
+        curseur.execute(sql, (nom, grade, departement_id, email, domaine_recherche, nom_photo, id))
+        connexion.commit()
+        
+        curseur.close()
+        connexion.close()
+
+        return redirect(url_for("liste_enseignant"))
+
+    curseur.execute("SELECT * FROM enseignant WHERE id=%s", (id,))
+    enseignant = curseur.fetchone()
+    
+    curseur.execute("SELECT * FROM departement ORDER BY nom ASC")
+    departements = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    return render_template("admin/modifier_enseignant.html", enseignant=enseignant, departements=departements)
+
+@app.route("/admin/enseignant/supprimer/<int:id>", methods=["POST"])
+def supprimer_enseignant(id):
+    if "admin" not in session:
+        return redirect(url_for("login"))
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    
+    curseur.execute("SELECT photo FROM enseignant WHERE id=%s", (id,))
+    enseignant = curseur.fetchone()
+    
+    if enseignant and enseignant['photo']:
+        chemin = os.path.join('static/uploads/enseignants', enseignant['photo'])
+        if os.path.exists(chemin):
+            os.remove(chemin)
+
+    curseur.execute("DELETE FROM enseignant WHERE id=%s", (id,))
+    connexion.commit()
+    
+    curseur.close()
+    connexion.close()
+
+    return redirect(url_for("liste_enseignant"))
 @app.route("/admin/logout")
 def logout():
     session.pop("admin", None)

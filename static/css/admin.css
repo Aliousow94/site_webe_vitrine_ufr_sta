@@ -1285,3 +1285,57 @@ img {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
+.stat-rose::before { background: #e11d48; }
+.stat-rose .stat-icon { background: rgba(225, 29, 72, 0.12); color: #e11d48; }
+
+.btn-rose {
+    background: #e11d48;
+    color: #ffffff;
+}
+
+.btn-rose:hover {
+    background: #be123c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+}
+/* --- Grille pour les 6 semestres dans le formulaire --- */
+.semestre-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes sur PC */
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.semestre-box label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0ea5d8;
+    margin-bottom: 6px;
+    background: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.semestre-box textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.88rem;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.semestre-box textarea:focus {
+    border-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .semestre-grid {
+        grid-template-columns: 1fr; /* 1 colonne sur mobile */
+    }
+}

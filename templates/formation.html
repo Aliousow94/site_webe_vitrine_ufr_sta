@@ -1,9 +1,67 @@
 {% extends "base.html" %}
-{% block title %}
-formations
-{% endblock %}
+{% block title %}Formations - UFR STA{% endblock %}
+
 {% block contenu %}
+<div class="bandeau-bleu">
+    <h2>Nos Formations</h2>
+</div>
 
+<div class="dept-section">
+    <div class="dept-header-text">
+        <span>Se former pour l'excellence</span>
+        <h2>Découvrir nos programmes</h2>
+    </div>
 
+    {% if not formations_par_dept %}
+    <div class="activite-empty">
+        <p>Aucune formation n'a été ajoutée pour le moment.</p>
+    </div>
+    {% else %}
+        {% for dept_id, dept_data in formations_par_dept.items() %}
+        <div class="formation-dept-block">
+            <h3 class="formation-dept-title">
+                <i class="bi bi-building"></i> {{ dept_data.nom_departement }}
+            </h3>
+            
+            <div class="formation-grid">
+                {% for f in dept_data.formations %}
+                <div class="formation-detail-card">
+                    <div class="formation-detail-header">
+                        <h4>{{ f.niveau }} en {{ f.nom }}</h4>
+                        <span class="formation-duree"><i class="bi bi-clock"></i> {{ f.duree }}</span>
+                    </div>
+                    
+                    <div class="formation-detail-body">
+                        <div class="formation-info-block">
+                            <h5><i class="bi bi-check-circle-fill"></i> Conditions d'admission</h5>
+                            <p>{{ f.admission }}</p>
+                        </div>
+                        <div class="formation-info-block">
+                            <h5><i class="bi bi-briefcase-fill"></i> Débouchés</h5>
+                            <p>{{ f.debouches }}</p>
+                        </div>
+                    </div>
 
+                    {% if f.programme %}
+                    <div class="formation-programme-toggle">
+                        <button type="button" class="btn-toggle-programme" onclick="toggleProgramme(this)">
+                            <span><i class="bi bi-calendar-range"></i> Voir le programme détaillé</span>
+                            <i class="bi bi-chevron-down toggle-icon"></i>
+                        </button>
+                        <div class="programme-content">
+                            <!-- Le texte brut est caché, le JS va le lire et générer le beau design à côté -->
+                            <div class="programme-raw-text" style="display: none;">{{ f.programme }}</div>
+                            <div class="programme-formatted"></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='js/formation.js') }}"></script>
 {% endblock %}

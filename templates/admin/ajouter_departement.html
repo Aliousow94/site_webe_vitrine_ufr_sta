@@ -15,10 +15,14 @@
     <div class="card-body">
         <form method="POST" class="admin-form">
             <div class="form-group">
-                <label for="nom">Nom du département</label>
-                <input type="text" id="nom" name="nom" placeholder="Ex: Département Informatique" required>
+                <label for="departement_id">Département</label>
+                 <select id="departement_id" name="departement_id">
+                    <option value="">-- Aucun --</option>
+                    {% for d in departements %}
+                    <option value="{{ d.id }}">{{ d.nom }}</option>
+                    {% endfor %}
+                 </select>
             </div>
-
             <div class="form-row">
                 <div class="form-group">
                     <label for="responsable">Responsable</label>

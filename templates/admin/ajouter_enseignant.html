@@ -1,0 +1,84 @@
+{% extends "admin/base.html" %}
+{% block title %}Ajouter un enseignant{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / <a href="{{ url_for('liste_enseignant') }}">Enseignants</a> / Ajouter{% endblock %}
+
+{% block contenu %}
+<div class="page-header">
+    <h2>Ajouter un enseignant</h2>
+    <a href="{{ url_for('liste_enseignant') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Retour
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="card-header"><h3><i class="bi bi-plus-circle"></i> Nouvel enseignant</h3></div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" class="admin-form">
+            <div class="form-group">
+                <label for="nom">Nom complet</label>
+                <input type="text" id="nom" name="nom" placeholder="Ex: Dr. Lamine YADE" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="grade">Grade</label>
+                    <select id="grade" name="grade" required>
+                        <option value="">-- Choisir --</option>
+                        <option value="Professeur Titulaire">Professeur Titulaire</option>
+                        <option value="Enseignant-Chercheur">Enseignant-Chercheur</option>
+                        <option value="Professeur">Professeur</option>
+                        <option value="Maître de Conférences">Maître de Conférences (MCF)</option>
+                        <option value="Maître Assistant">Maître Assistant (MA)</option>
+                        <option value="Assistant">Assistant</option>
+                        <option value="Vacataire">Vacataire</option>
+                        <option value="Doctorant">Doctorant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="departement_id">Département</label>
+                    <select id="departement_id" name="departement_id">
+                        <option value="">-- Aucun --</option>
+                        {% for d in departements %}
+                        <option value="{{ d.id }}">{{ d.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email professionnel</label>
+                <input type="email" id="email" name="email" placeholder="Ex: prenom.nom@uam.sn" required>
+            </div>
+
+            <div class="form-group">
+                <label for="domaine_recherche">Domaines de recherche</label>
+                <textarea id="domaine_recherche" name="domaine_recherche" rows="4" placeholder="Ex: Intelligence Artificielle, Bases de données, Sécurité informatique..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="photo">Photo de profil</label>
+                <div class="file-input-wrap">
+                    <input type="file" id="photo" name="photo" accept="image/*" onchange="previewImage(this, 'previewImg')">
+                    <label for="photo" class="file-label">
+                        <i class="bi bi-cloud-upload"></i>
+                        <span>Cliquer pour choisir une photo</span>
+                    </label>
+                </div>
+                <div class="image-preview" id="previewContainer" style="display:none;">
+                    <img id="previewImg" src="" alt="Aperçu">
+                    <button type="button" class="preview-remove" onclick="removePreview('photo', 'previewImg')">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('liste_enseignant') }}" class="btn btn-secondary">Annuler</a>
+                <button type="submit" class="btn btn-rose">
+                    <i class="bi bi-check-lg"></i> Ajouter l'enseignant
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

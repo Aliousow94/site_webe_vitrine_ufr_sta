@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Corps Enseignant - UFR STA{% endblock %}
+
+{% block contenu %}
+<div class="bandeau-bleu">
+    <h2>Notre Équipe</h2>
+</div>
+
+<div class="dept-section">
+    <div class="dept-header-text">
+        <span>Expertise et encadrement</span>
+        <h2>Le Corps Enseignant</h2>
+    </div>
+
+    {% if enseignants|length == 0 %}
+    <div class="activite-empty">
+        <p>Aucun enseignant n'a été ajouté pour le moment.</p>
+    </div>
+    {% else %}
+    <div class="enseignant-grid">
+        {% for e in enseignants %}
+        <div class="enseignant-card">
+            
+            <!-- Photo de profil -->
+            <div class="enseignant-photo-box">
+                {% if e.photo %}
+                <img src="{{ url_for('static', filename='uploads/enseignants/' ~ e.photo) }}" alt="{{ e.nom }}" class="enseignant-img">
+                {% else %}
+                <div class="enseignant-img-placeholder">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Informations -->
+            <div class="enseignant-info">
+                <h3>{{ e.nom }}</h3>
+                <span class="enseignant-grade">{{ e.grade }}</span>
+                
+                <div class="enseignant-details">
+                    <span><i class="bi bi-building"></i> {{ e.nom_departement if e.nom_departement else 'Non renseigné' }}</span>
+                    <span><i class="bi bi-envelope-fill"></i> {{ e.email }}</span>
+                </div>
+
+                {% if e.domaine_recherche %}
+                <div class="enseignant-domaines">
+                    <h4>Domaines de recherche :</h4>
+                    <p>{{ e.domaine_recherche }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

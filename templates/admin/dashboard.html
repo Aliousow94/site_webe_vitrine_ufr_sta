@@ -61,6 +61,14 @@
         </div>
         <i class="bi bi-chevron-right stat-arrow"></i>
     </a>
+        <a href="{{ url_for('liste_enseignant') }}" class="stat-card stat-rose">
+        <div class="stat-icon"><i class="bi bi-person-workspace"></i></div>
+        <div class="stat-info">
+            <span class="stat-number">Gérer</span>
+            <span class="stat-label">Enseignants</span>
+        </div>
+        <i class="bi bi-chevron-right stat-arrow"></i>
+    </a>
 
 
 <div class="admin-card">
@@ -77,6 +85,9 @@
             </a>
             <a href="{{ url_for('ajouter_formation') }}" class="btn btn-warning">
                 <i class="bi bi-plus-lg"></i> Nouvelle formation
+            </a>
+                        <a href="{{ url_for('ajouter_enseignant') }}" class="btn btn-rose">
+                <i class="bi bi-plus-lg"></i> Nouvel enseignant
             </a>
             <a href="{{ url_for('ajouter_galerie') }}" class="btn btn-info">
                 <i class="bi bi-plus-lg"></i> Nouvel album
