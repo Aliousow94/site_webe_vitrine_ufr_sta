@@ -38,13 +38,13 @@ def actualites():
 @app.route("/activites")
 def activites():
     return render_template("activites.html")
-<<<<<<< HEAD
+
 @app.route("/enseignant")
 def enseignant():
     return render_template("enseignant.html")
-=======
 
->>>>>>> 207eb6e0e0e7c8ca31fa10758c101ab3e45a8506
+
+
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
