@@ -907,132 +907,622 @@
     }
 }
 
-              /*ENSEIGNANTS*/
-.bande-bleue {
-    background-color: #0099cc;
-    color: white;
-    text-align: center;
-    padding: 25px 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+/* ============================================================
+   DESIGN MODERNE EXCLUSIF - PAGE ACTIVITÉS (activite.html)
+   ============================================================ */
 
-.bande-bleue h1 {
-    font-size: 2.2rem;
-    font-weight: 600;
-}
-
-/* Zone principale */
-.section-professeurs {
+/* Grille moderne pour les cartes d'activités */
+/* Grille moderne pour les cartes d'activités (PARALLÈLE = 2 colonnes) */
+.activite-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Force 2 colonnes côte à côte */
+    gap: 30px;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 0 auto 50px auto;
     padding: 0 20px;
 }
 
-.titre-section {
-    text-align: center;
-    font-size: 2rem;
-    color: #ffffff;
-    margin-bottom: 5px;
-}
-
-.sous-titre {
-    text-align: center;
-    color:  #a04e1e;
-    font-size: 1rem;
-    margin-bottom: 40px;
-}
-
-/* Alignement en grille responsive pour les 5 profs */
-.grille-profs {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    justify-content: center;
-}
-
-/* Cartes individuelles */
-.carte-prof {
-    background-color: #a04e1e;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+/* La Carte (overflow visible pour ne pas couper l'agrandissement au survol) */
+.activite-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    overflow: visible; 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #333333;
+    border: 1px solid #f0f0f0;
 }
 
-.carte-prof:hover {
+.activite-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 153, 204, 0.2);
-    border-color: #0099cc;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Conteneur de l'image */
-.conteneur-photo {
+/* Image Principale (contain pour ne pas couper les têtes) */
+.activite-img-main {
     width: 100%;
-    height: 260px;
-    background-color: #333;
-    overflow: hidden;
+    height: auto; /* S'adapte automatiquement au format de l'image */
+    max-height: 300px; /* Limite la hauteur pour ne pas faire des cartes géantes */
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+    border-radius: 16px 16px 0 0;
 }
 
-.photo-prof {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+/* Image Principale (Hauteur flexible pour ne JAMAIS couper) */
+.activite-img-main img {
+    width: 100%;      /* Prend TOUTE la largeur */
+    height: auto;      /* Calcule la hauteur automatiquement pour ne rien couper */
+    display: block;
+}
+/* --- Bande de Photos (Colonne verticale) --- */
+/* --- Bande de Photos (Ligne horizontale) --- */
+/* --- Bande de Photos (Ligne horizontale avec défilement) --- */
+.activite-mini-bande {
+    display: flex;
+    flex-direction: row; /* Alignées sur la même ligne */
+    gap: 10px;            
+    padding: 10px 20px 0 20px;
+    background: #ffffff;
+    overflow-x: auto; /* Permet de scroller horizontalement si ça dépasse */
+    overflow-y: hidden;
+    /* Design de la barre de défilement (subtil et moderne) */
+    scrollbar-width: thin; 
+    scrollbar-color: #cbd5e1 transparent;
 }
 
-.carte-prof:hover .photo-prof {
-    transform: scale(1.03);
+/* Pour Chrome/Edge */
+.activite-mini-bande::-webkit-scrollbar {
+    height: 6px;
 }
 
-/* Bloc d'informations */
-.infos-prof {
+.activite-mini-bande::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 3px;
+}
+
+/* --- Chaque Photo Secondaire (TAILLE IDENTIQUE, TÊTE INTACTE, PAS DE ZOOM) --- */
+/* --- Chaque Photo Secondaire (60% de la taille principale = 144px) --- */
+/* --- Chaque Photo Secondaire (Petites vignettes sur la même ligne) --- */
+/* --- Chaque Photo Secondaire (EXACTEMENT 60% = 144px) --- */
+/* --- Chaque Photo Secondaire (Image ENTIÈRE visible) --- */
+.activite-mini {
+    width: 144px;        /* 60% de 240px */
+    height: 144px;       /* 60% de 240px */
+    object-fit: contain;  /* Montre l'image ENTIÈRE sans couper les bords */
+    background-color: #f3f4f6; /* Fond gris clair derrière si l'image ne remplit pas tout */
+    border-radius: 8px;   
+    border: none;
+    opacity: 0.85;        
+    transition: opacity 0.3s ease; 
+    cursor: pointer;
+    flex-shrink: 0;       
+    transform: none !important; 
+}
+
+/* --- Effet au survol (PAS DE ZOOM, juste la luminosité) --- */
+.activite-mini:hover {
+    opacity: 1;           /* La photo devient totalement claire */
+    /* AUCUN TRANSFORM ICI : L'image ne bouge plus ! */
+}
+
+
+
+
+/* Contenu Texte */
+.activite-body {
     padding: 20px;
 }
 
-.nom-prof {
-    color: #ffffff;
-    font-size: 1.25rem;
-    margin-bottom: 5px;
+/* Date / Lieu / Organisateur */
+.activite-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #e2e8f0;
 }
 
-.grade-prof {
-    color: #0099cc;
+.activite-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.activite-meta i {
+    color: #0ea5d8;
     font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
-.separateur {
-    border: 0;
-    height: 1px;
-    background: #444444;
-    margin: 15px 0;
-}
-
-.infos-prof p {
-    font-size: 0.95rem;
-    color: #cccccc;
-    margin-bottom: 8px;
+/* Titre */
+.activite-titre {
+    font-size: 1.2rem;
+    color: #1e293b;
+    font-weight: 700;
+    margin-bottom: 12px;
     line-height: 1.4;
 }
 
-.infos-prof strong {
+/* Description */
+.activite-desc {
+    font-size: 0.92rem;
+    color: #555555;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* État vide (s'il n'y a pas d'activités) */
+.activite-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+}
+
+/* --- Responsive (Revient à 1 colonne sur téléphone) --- */
+@media (max-width: 900px) { /* Changé 768px en 900px pour plus d'espace */
+    .activite-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ============================================================
+   PAGE DÉPARTEMENTS PUBLIC
+   ============================================================ */
+
+.dept-section {
+    max-width: 1200px;
+    width: 90%;
+    margin: 40px auto 80px auto;
+}
+
+.dept-header-text {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.dept-header-text span {
+    color: #be5a2b;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.dept-header-text h2 {
+    font-size: 2.2rem;
+    color: #111111;
+    font-family: Georgia, serif;
+}
+
+/* Grille de cartes */
+.dept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+/* La Carte */
+.dept-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dept-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* En-tête (Couleur Terre cuite) */
+.dept-card-top {
+    background-color: #be5a2b;
     color: #ffffff;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.infos-prof a {
-    color: #0099cc;
-    text-decoration: none;
+.dept-card-top i {
+    font-size: 2rem;
+    opacity: 0.9;
 }
 
-.infos-prof a:hover {
-    text-decoration: underline;
+.dept-card-top h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 
-.recherche {
-    margin-top: 12px;
-    font-style: italic;
+/* Corps de la carte */
+.dept-card-body {
+    padding: 25px;
+}
+
+.dept-description {
+    font-size: 0.95rem;
+    color: #444444;
+    line-height: 1.6;
+    margin-top: 20px; /* Espace au-dessus au lieu d'en dessous */
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0; /* Un petit trait pour séparer la description du reste */
+    text-align: justify;
+}
+
+/* Infos responsable */
+.dept-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.dept-info i {
+    color: #0ea5d8;
+    margin-right: 8px;
+    width: 16px;
+}
+
+/* Liste des formations (Le bonus !) */
+.dept-formations {
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 15px;
+}
+
+.dept-formations h4 {
+    font-size: 0.9rem;
+    color: #1e293b;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.dept-formations ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dept-formations li {
+    font-size: 0.88rem;
+    color: #555555;
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.dept-formations li::before {
+    content: "•";
+    color: #be5a2b;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dept-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ============================================================
+   PAGE ENSEIGNANTS PUBLIC
+   ============================================================ */
+
+.enseignant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.enseignant-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.enseignant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Photo de profil */
+.enseignant-photo-box {
+    height: 280px;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.enseignant-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Montre la personne ENTIÈRE sans couper la tête */
+}
+
+/* Si pas de photo : grosse icône */
+.enseignant-img-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.enseignant-img-placeholder i {
+    font-size: 3.5rem;
+    color: #94a3b8;
+}
+
+/* Informations texte */
+.enseignant-info {
+    padding: 25px;
+}
+
+.enseignant-info h3 {
+    font-size: 1.25rem;
+    color: #111111;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.enseignant-grade {
+    display: inline-block;
+    background-color: rgba(190, 90, 43, 0.1);
+    color: #be5a2b;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.enseignant-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.enseignant-details span {
+    font-size: 0.9rem;
+    color: #555555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.enseignant-details i {
+    color: #0ea5d8;
+    width: 16px;
+}
+
+/* Domaines de recherche */
+.enseignant-domaines {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+}
+
+.enseignant-domaines h4 {
+    font-size: 0.9rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.enseignant-domaines p {
+    font-size: 0.88rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .enseignant-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ============================================================
+   PAGE FORMATIONS PUBLIC
+   ============================================================ */
+
+/* Bloc d'un département */
+.formation-dept-block {
+    margin-bottom: 50px;
+}
+
+.formation-dept-title {
+    color: #0ea5d8;
+    font-size: 1.5rem;
+    border-left: 5px solid #be5a2b;
+    padding-left: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Grille des cartes de formations */
+.formation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+/* La Carte */
+.formation-detail-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.formation-detail-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* En-tête (Fond sombre) */
+.formation-detail-header {
+    background: #1e293b;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formation-detail-header h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.formation-duree {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+/* Corps (Admission/Débouchés) */
+.formation-detail-body {
+    padding: 20px;
+}
+
+.formation-info-block {
+    margin-bottom: 20px;
+}
+
+.formation-info-block h5 {
+    font-size: 0.9rem;
+    color: #be5a2b;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.formation-info-block p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Bouton Voir Programme */
+.formation-programme-toggle {
+    width: 100%;
+    border: none;
+    background: #f8fafc;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    border-top: 1px solid #e2e8f0;
+    transition: background 0.2s;
+}
+
+.formation-programme-toggle:hover {
+    background: #f1f5f9;
+}
+
+.toggle-icon {
+    transition: transform 0.3s;
+}
+
+.toggle-icon.rotated {
+    transform: rotate(180deg);
+}
+
+/* Conteneur du Programme */
+.programme-content {
+    border-top: 1px solid #e2e8f0;
+    background: #fff;
+    padding: 20px;
+    display: none; /* Caché par défaut */
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bloc d'un Semestre (Généré par JS) */
+.semestre-block {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #0ea5d8;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+}
+
+.semestre-title {
+    color: #0ea5d8;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #cbd5e1;
+}
+
+/* Liste des Modules (Générée par JS) */
+.module-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.module-list li {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.module-list li::before {
+    content: "•";
+    color: #be5a2b;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+    .formation-grid {
+        grid-template-columns: 1fr;
+    }
+    .module-list {
+        grid-template-columns: 1fr;
+    }
 }

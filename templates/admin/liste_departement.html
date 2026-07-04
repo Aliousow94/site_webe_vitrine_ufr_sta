@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+{% block title %}Départements{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / Départements{% endblock %}
+
+{% block contenu %}
+<div class="page-header">
+    <h2>Gestion des Départements</h2>
+    <a href="{{ url_for('ajouter_departement') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Ajouter un département
+    </a>
+</div>
+
+{% if departements|length == 0 %}
+<div class="empty-state">
+    <i class="bi bi-building"></i>
+    <p>Aucun département enregistré pour le moment.</p>
+    <a href="{{ url_for('ajouter_departement') }}" class="btn btn-primary">Ajouter le premier</a>
+</div>
+{% else %}
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Responsable</th>
+                    <th>Contact</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in departements %}
+                <tr>
+                    <td class="font-semibold">{{ d.nom }}</td>
+                    <td>{{ d.responsable }}</td>
+                    <td class="text-muted">{{ d.contact }}</td>
+                    <td class="text-right">
+                        <a href="{{ url_for('modifier_departement', id=d.id) }}" class="btn btn-sm btn-warning" title="Modifier">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form action="{{ url_for('supprimer_departement', id=d.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce département ?')">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

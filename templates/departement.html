@@ -1,9 +1,58 @@
 {% extends "base.html" %}
-{% block title %}
-departements
-{% endblock %}
+{% block title %}Départements - UFR STA{% endblock %}
+
 {% block contenu %}
+<div class="bandeau-bleu">
+    <h2>Nos Départements</h2>
+</div>
 
+<div class="dept-section">
+    <div class="dept-header-text">
+        <span>Excellence académique et recherche</span>
+        <h2>Découvrez nos départements</h2>
+    </div>
 
+    {% if departements|length == 0 %}
+    <div class="activite-empty">
+        <p>Aucun département n'a été ajouté pour le moment.</p>
+    </div>
+    {% else %}
+    <div class="dept-grid">
+        {% for d in departements %}
+        <div class="dept-card">
+            <!-- En-tête de la carte avec icône -->
+            <div class="dept-card-top">
+                <i class="bi bi-mortarboard-fill"></i>
+                <h3>{{ d.nom }}</h3>
+            </div>
+            
+            <!-- Contenu -->
+            <div class="dept-card-body">
+                <!-- 1. Infos Responsable et Contact -->
+                <div class="dept-info">
+                    <span><i class="bi bi-person-fill"></i> {{ d.responsable }}</span>
+                    <span><i class="bi bi-envelope-fill"></i> {{ d.contact }}</span>
+                </div>
+
+                <!-- 2. BONUS : Liste des formations rattachées -->
+                {% if d.id in formations_par_dept %}
+                <div class="dept-formations">
+                    <h4>Formations proposées :</h4>
+                    <ul>
+                        {% for f in formations_par_dept[d.id] %}
+                        <li>{{ f.niveau }} en {{ f.nom }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <!-- 3. DESCRIPTION EN DERNIER -->
+                <p class="dept-description">{{ d.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}

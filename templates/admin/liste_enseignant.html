@@ -1,0 +1,66 @@
+{% extends "admin/base.html" %}
+{% block title %}Enseignants{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / Enseignants{% endblock %}
+
+{% block contenu %}
+<div class="page-header">
+    <h2>Gestion des Enseignants</h2>
+    <a href="{{ url_for('ajouter_enseignant') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Ajouter un enseignant
+    </a>
+</div>
+
+{% if enseignants|length == 0 %}
+<div class="empty-state">
+    <i class="bi bi-person-workspace"></i>
+    <p>Aucun enseignant enregistré pour le moment.</p>
+    <a href="{{ url_for('ajouter_enseignant') }}" class="btn btn-primary">Ajouter le premier</a>
+</div>
+{% else %}
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Nom complet</th>
+                    <th>Grade</th>
+                    <th>Département</th>
+                    <th>Domaines de recherche</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in enseignants %}
+                <tr>
+                                        <td>
+                        <div class="table-thumb" style="background-color: #f1f5f9;">
+                            {% if e.photo %}
+                            <img src="{{ url_for('static', filename='uploads/enseignants/' ~ e.photo) }}" alt="{{ e.nom }}" style="object-fit: contain;">
+                            {% else %}
+                            <img src="https://via.placeholder.com/56x40?text=Photo" alt="Pas de photo">
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="font-semibold">{{ e.nom }}</td>
+                    <td>{{ e.grade }}</td>
+                    <td class="text-muted">{{ e.nom_departement if e.nom_departement else '—' }}</td>
+                    <td class="text-muted">{{ e.domaine_recherche }}</td>
+                    <td class="text-right">
+                        <a href="{{ url_for('modifier_enseignant', id=e.id) }}" class="btn btn-sm btn-warning" title="Modifier">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form action="{{ url_for('supprimer_enseignant', id=e.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer cet enseignant ?')">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

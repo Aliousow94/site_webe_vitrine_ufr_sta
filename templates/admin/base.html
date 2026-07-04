@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Administration{% endblock %} - UFR STA</title>
-    <!-- Icônes Bootstrap Icons -->
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- CSS Admin -->
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 </head>
 <body class="{% block body_class %}{% endblock %}">
 
-    <!-- ========== SIDEBAR ========== -->
+    
     <aside class="admin-sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="sidebar-logo">
@@ -43,13 +43,26 @@
                 <i class="bi bi-calendar-event"></i>
                 <span>Activités</span>
             </a>
+                        <a href="{{ url_for('liste_departement') }}" class="nav-item" data-path="/admin/departement">
+                <i class="bi bi-building"></i>
+                <span>Départements</span>
+            </a>
+                        <a href="{{ url_for('liste_enseignant') }}" class="nav-item" data-path="/admin/enseignant">
+                <i class="bi bi-person-workspace"></i>
+                <span>Enseignants</span>
+            </a>
             <a href="{{ url_for('liste_formation') }}" class="nav-item" data-path="/admin/formation">
                 <i class="bi bi-mortarboard-fill"></i>
                 <span>Formations</span>
             </a>
+
             <a href="{{ url_for('liste_galerie') }}" class="nav-item" data-path="/admin/galerie">
                 <i class="bi bi-images"></i>
                 <span>Galerie Photos</span>
+            </a>
+                        <a href="{{ url_for('liste_contact') }}" class="nav-item" data-path="/admin/contact">
+                <i class="bi bi-envelope"></i>
+                <span>Messages</span>
             </a>
         </nav>
 

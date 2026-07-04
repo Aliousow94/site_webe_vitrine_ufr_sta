@@ -1,0 +1,51 @@
+{% extends "admin/base.html" %}
+{% block title %}Messages{% endblock %}
+{% block breadcrumb %}<a href="{{ url_for('dashboard') }}">Tableau de bord</a> / Messages{% endblock %}
+
+{% block contenu %}
+<div class="page-header">
+    <h2>Messages reçus</h2>
+</div>
+
+{% if contacts|length == 0 %}
+<div class="empty-state">
+    <i class="bi bi-envelope"></i>
+    <p>Aucun message pour le moment.</p>
+</div>
+{% else %}
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Sujet</th>
+                    <th>Message</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in contacts %}
+                <tr>
+                    <td class="text-muted" style="white-space:nowrap;">{{ c.date_envoi }}</td>
+                    <td class="font-semibold">{{ c.nom }}</td>
+                    <td>{{ c.email }}</td>
+                    <td>{{ c.sujet }}</td>
+                    <td class="text-muted">{{ c.message[:80] }}{% if c.message|length > 80 %}...{% endif %}</td>
+                    <td class="text-right">
+                        <form action="{{ url_for('supprimer_contact', id=c.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce message ?')">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

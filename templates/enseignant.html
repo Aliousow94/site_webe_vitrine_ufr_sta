@@ -1,18 +1,27 @@
 {% extends "base.html" %}
-{% block title %}
-Enseignants
-{%endblock%}
-{%block contenu%}
-<div class="bande-bleue">
-        <h1>CORPS PROFESSORAL</h1>
+{% block title %}Corps Enseignant - UFR STA{% endblock %}
+
+{% block contenu %}
+<div class="bandeau-bleu">
+    <h2>Notre Équipe</h2>
+</div>
+
+<div class="dept-section">
+    <div class="dept-header-text">
+        <span>Expertise et encadrement</span>
+        <h2>Le Corps Enseignant</h2>
     </div>
 
-    <main class="section-professeurs">
-        <h2 class="titre-section">Les Professeurs Titulaires</h2>
-        <p class="sous-titre">Découvrez les enseignants-chercheurs de l'UFR Sciences et Technologies Avancées</p>
-
-        <div class="grille-profs">
+    {% if enseignants|length == 0 %}
+    <div class="activite-empty">
+        <p>Aucun enseignant n'a été ajouté pour le moment.</p>
+    </div>
+    {% else %}
+    <div class="enseignant-grid">
+        {% for e in enseignants %}
+        <div class="enseignant-card">
             
+<<<<<<< HEAD
             <div class="carte-prof">
                 <div class="conteneur-photo">
                     <img src="{{ url_for('static', filename='images/derecteur.png') }}" alt="coulibaly" class="photo-prof">
@@ -24,67 +33,40 @@ Enseignants
                     <p><strong>Département :</strong> Mathématique appliquée</p>
                     <p><strong>Email :</strong> <a href="mailto:alioune.coulibaly@uam.edu.sn">alioune.coulibaly@uam.edu.sn</a></p>
                     <p class="recherche"><strong>Domaines de recherche :</strong> </p>
+=======
+            <!-- Photo de profil -->
+            <div class="enseignant-photo-box">
+                {% if e.photo %}
+                <img src="{{ url_for('static', filename='uploads/enseignants/' ~ e.photo) }}" alt="{{ e.nom }}" class="enseignant-img">
+                {% else %}
+                <div class="enseignant-img-placeholder">
+                    <i class="bi bi-person-fill"></i>
+>>>>>>> 9490a11384016a054484e04cc94e4cf0a71ba1fc
                 </div>
+                {% endif %}
             </div>
+            
+            <!-- Informations -->
+            <div class="enseignant-info">
+                <h3>{{ e.nom }}</h3>
+                <span class="enseignant-grade">{{ e.grade }}</span>
+                
+                <div class="enseignant-details">
+                    <span><i class="bi bi-building"></i> {{ e.nom_departement if e.nom_departement else 'Non renseigné' }}</span>
+                    <span><i class="bi bi-envelope-fill"></i> {{ e.email }}</span>
+                </div>
 
-            <div class="carte-prof">
-                <div class="conteneur-photo">
-                    <img src="{{ url_for('static', filename='images/sow.png') }}" alt="sow" class="photo-prof">
+                {% if e.domaine_recherche %}
+                <div class="enseignant-domaines">
+                    <h4>Domaines de recherche :</h4>
+                    <p>{{ e.domaine_recherche }}</p>
                 </div>
-                <div class="infos-prof">
-                    <h3 class="nom-prof">Dr.thierno M.M.SOW</h3>
-                    <span class="grade-prof">Professeur Titulaire</span>
-                    <hr class="separateur">
-                    <p><strong>Département :</strong> Mathématiques Appliquées</p>
-                    <p><strong>Email :</strong> <a href="thierno.sow@uam.edu.sn">thiorno.sow@uam.edu.sn</a></p>
-                    <p class="recherche"><strong>Domaines de recherche :</strong> </p>
-                </div>
+                {% endif %}
             </div>
-
-            <div class="carte-prof">
-                <div class="conteneur-photo">
-                    <img src="{{ url_for('static', filename='images/makha.jpeg') }}" alt="makha ndaw" class="photo-prof">
-                </div>
-                <div class="infos-prof">
-                    <h3 class="nom-prof">Dr. Makha NDAW</h3>
-                    <span class="grade-prof">Professeur Titulaire</span>
-                    <hr class="separateur">
-                    <p><strong>Département :</strong> Physique</p>
-                    <p><strong>Email :</strong> <a href="mailto:makha.ndaw@uam.edu.sn">makha.ndaw@uam.edu.sn</a></p>
-                    <p class="recherche"><strong>Domaines de recherche :</strong> En physique</p>
-                </div>
-            </div>
-
-            <div class="carte-prof">
-                <div class="conteneur-photo">
-                    <img src="{{ url_for('static', filename='images/dakhiro.png') }}" alt="dahirou" class="photo-prof">
-                </div>
-                <div class="infos-prof">
-                    <h3 class="nom-prof">Dr. Dahirou Gueye</h3>
-                    <span class="grade-prof">Professeur Titulaire</span>
-                    <hr class="separateur">
-                    <p><strong>Département :</strong> Informatique</p>
-                    <p><strong>Email :</strong> <a href="mailto:dahirou.gueye@uam.edu.sn">dahirou.gueye@uam.edu.sn</a></p>
-                    <p class="recherche"><strong>Domaines de recherche :</strong> </p>
-                </div>
-            </div>
-
-            <div class="carte-prof">
-                <div class="conteneur-photo">
-                    <img src="{{ url_for('static', filename='images/siny.png') }}" alt="siny ndoye" class="photo-prof">
-                </div>
-                <div class="infos-prof">
-                    <h3 class="nom-prof">Dr. Siny NDOYE</h3>
-                    <span class="grade-prof">Professeur Titulaire</span>
-                    <hr class="separateur">
-                    <p><strong>Département :</strong> Physique</p>
-                    <p><strong>Email :</strong> <a href="mailto:siny.ndoye@uam.edu.sn">siny.ndoye@uam.edu.sn</a></p>
-                    <p class="recherche"><strong>Domaines de recherche :</strong> En physique</p>
-                </div>
-            </div>
-
         </div>
-    </main>
-
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}
