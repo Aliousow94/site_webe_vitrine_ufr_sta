@@ -151,8 +151,32 @@ def enseignant():
     connexion.close()
     
     return render_template("enseignant.html", enseignants=enseignants)
+@app.route("/gallery")
+def gallery():
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    
+    # Récupérer tous les albums
+    curseur.execute("SELECT * FROM galerie ORDER BY date_album DESC")
+    albums = curseur.fetchall()
+    
+    # Pour chaque album, chercher sa première photo et le nombre total de photos
+    for alb in albums:
+        curseur.execute("SELECT photo FROM photo_galerie WHERE galerie_id=%s ORDER BY id ASC LIMIT 1", (alb['id'],))
+        premiere_photo = curseur.fetchone()
+        
+        curseur.execute("SELECT COUNT(*) as total FROM photo_galerie WHERE galerie_id=%s", (alb['id'],))
+        total_photos = curseur.fetchone()
+        
+        alb['photos'] = [] 
+        if premiere_photo:
+            alb['photos'].append(premiere_photo)
+        alb['total_photos'] = total_photos['total']
 
-
+    curseur.close()
+    connexion.close()
+    
+    return render_template("gallery.html", albums=albums)
 @app.route("/contact")
 
 def contact():
@@ -173,9 +197,7 @@ def contact():
         return redirect(url_for("contact"))
     return render_template("contact.html")
 
-@app.route("/gallery")
-def gallery():
-    return render_template("gallery.html")
+
 
 @app.route("/admin/login", methods=["GET", "POST"])
 def login():
@@ -205,7 +227,39 @@ def login():
 def dashboard():
     if "admin" not in session:
         return redirect(url_for("login"))
-    return render_template("admin/dashboard.html")
+
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+
+    # --- Compteurs ---
+    curseur.execute("SELECT COUNT(*) as nb FROM actualite")
+    nb_actualites = curseur.fetchone()
+
+    curseur.execute("SELECT COUNT(*) as nb FROM activite")
+    nb_activites = curseur.fetchone()
+
+    curseur.execute("SELECT COUNT(*) as nb FROM formation")
+    nb_formations = curseur.fetchone()
+
+    curseur.execute("SELECT COUNT(*) as nb FROM galerie")
+    nb_albums = curseur.fetchone()
+
+    curseur.execute("SELECT COUNT(*) as nb FROM enseignant")
+    nb_enseignants = curseur.fetchone()
+
+    curseur.execute("SELECT COUNT(*) as nb FROM contact")
+    nb_messages = curseur.fetchone()
+
+    curseur.close()
+    connexion.close()
+    
+    return render_template("admin/dashboard.html", 
+                           nb_actualites=nb_actualites, 
+                           nb_activites=nb_activites, 
+                           nb_formations=nb_formations, 
+                           nb_albums=nb_albums, 
+                           nb_enseignants=nb_enseignants, 
+                           nb_messages=nb_messages)
 
 @app.route("/admin/actualite")
 def liste_actualite():
@@ -522,6 +576,21 @@ def ajouter_galerie():
         return redirect(url_for("liste_galerie"))
 
     return render_template("admin/ajouter_galerie.html")
+# Route publique pour récupérer les photos d'un album (pour le Modal en JS)
+@app.route("/admin/galerie/<int:galerie_id>/photos/json")
+def photos_galerie_json(galerie_id):
+    connexion = get_db_connection()
+    curseur = connexion.cursor()
+    
+    curseur.execute("SELECT * FROM photo_galerie WHERE galerie_id=%s", (galerie_id,))
+    photos = curseur.fetchall()
+    
+    curseur.close()
+    connexion.close()
+    
+    # Conversion pour le format JSON
+    result = [{'id': p['id'], 'photo': p['photo']} for p in photos]
+    return jsonify(result)
 
 
 @app.route("/admin/galerie/supprimer/<int:id>", methods=["POST"])

@@ -1363,10 +1363,9 @@
 /* Grille des cartes de formations */
 .formation-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* Force 2 colonnes côte à côte sur PC */
     gap: 25px;
 }
-
 /* La Carte */
 .formation-detail-card {
     background: #fff;
@@ -1407,6 +1406,7 @@
 /* Corps (Admission/Débouchés) */
 .formation-detail-body {
     padding: 20px;
+    overflow-wrap: break-word;
 }
 
 .formation-info-block {
@@ -1525,4 +1525,184 @@
     .module-list {
         grid-template-columns: 1fr;
     }
+}
+/* ============================================================
+   PAGE GALERIE PHOTO PUBLIC
+   ============================================================ */
+
+.gallery-section {
+    max-width: 1200px;
+    width: 90%;
+    margin: 40px auto 80px auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Carte d'album */
+.album-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #f0f0f0;
+}
+
+.album-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Couverture de l'album */
+.album-cover {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+}
+
+.album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.album-card:hover .album-cover img {
+    transform: scale(1.05);
+}
+
+/* Badge nombre de photos */
+.album-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 15px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    color: #fff;
+    text-align: right;
+}
+
+.album-overlay span {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+/* Texte de l'album */
+.album-info {
+    padding: 20px;
+}
+
+.album-date {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.album-info h3 {
+    font-size: 1.15rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.album-info p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* --- Modal Albums (Fond sombre) --- */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.gallery-modal.active { display: flex; }
+
+.gallery-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    width: 90%; max-width: 900px; max-height: 80vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.modal-header-gal {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header-gal h3 { font-size: 1.2rem; color: #1e293b; }
+
+.modal-close-gal {
+    background: none; border: none; font-size: 1.8rem; color: #94a3b8; cursor: pointer;
+}
+
+/* Grille de photos dans la modal */
+.photos-grid-modal {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.photos-grid-modal img {
+    width: 100%; height: 150px;
+    object-fit: cover; border-radius: 8px; cursor: pointer;
+    transition: transform 0.2s; border: 2px solid transparent;
+}
+
+.photos-grid-modal img:hover { transform: scale(1.05); border-color: #0ea5d8; }
+
+/* --- Lightbox (Photo plein écran) --- */
+.lightbox-overlay {
+    display: none; position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 3000;
+    justify-content: center; align-items: center;
+}
+
+.lightbox-overlay.active { display: flex; }
+
+.lightbox-close {
+    position: absolute; top: 20px; right: 30px;
+    background: rgba(255,255,255,0.2); border: none;
+    color: white; font-size: 2rem; width: 45px; height: 45px;
+    border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+
+#lightboxImg {
+    max-width: 90%; max-height: 90%;
+    border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 768px) {
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr); }
+    .photos-grid-modal { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr); }
+    .gallery-modal-content { width: 95%; max-height: 85vh; }
 }

@@ -1,8 +1,64 @@
 {% extends "base.html" %}
-{% block title %}
-Gallery
-{%endblock%}
-{%block contenu%}
+{% block title %}Galerie Photos - UFR STA{% endblock %}
+
+{% block contenu %}
+<div class="bandeau-bleu">
+    <h2>Galerie Photos</h2>
+</div>
+
+<div class="gallery-section">
+    <div class="dept-header-text">
+        <span>Nos moments forts</span>
+        <h2>Albums Photos</h2>
+    </div>
+
+    {% if albums|length == 0 %}
+    <div class="activite-empty">
+        <p>Aucun album photo n'a été créé pour le moment.</p>
+    </div>
+    {% else %}
+    <div class="gallery-grid">
+        {% for alb in albums %}
+        <div class="album-card" onclick="openAlbumModal({{ alb.id }}, '{{ alb.titre }}')">
+            <div class="album-cover">
+                {% if alb.photos %}
+                    <img src="{{ url_for('static', filename='uploads/galerie/' ~ alb.photos[0].photo) }}" alt="{{ alb.titre }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/400x250?text=Album" alt="Album">
+                {% endif %}
+                <div class="album-overlay">
+                    <span><i class="bi bi-images"></i> {{ alb.photos|length }} photo(s)</span>
+                </div>
+            </div>
+            <div class="album-info">
+                <span class="album-date"><i class="fa-regular fa-calendar-days"></i> {{ alb.date_album }}</span>
+                <h3>{{ alb.titre }}</h3>
+                <p>{{ alb.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
 
 
+<div class="gallery-modal" id="albumModal">
+    <div class="gallery-modal-content">
+        <div class="modal-header-gal">
+            <h3 id="modalAlbumTitle">Titre de l'album</h3>
+            <button class="modal-close-gal" onclick="closeAlbumModal()">&times;</button>
+        </div>
+        <div class="photos-grid-modal" id="modalPhotosGrid">
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img src="" alt="Photo agrandie" id="lightboxImg">
+</div>
+
+<script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
 {% endblock %}

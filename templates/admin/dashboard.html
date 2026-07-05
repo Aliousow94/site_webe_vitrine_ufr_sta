@@ -4,17 +4,17 @@
 
 {% block contenu %}
 <div class="page-header">
-    <h2>Bonjour, {{ session["admin"] }}</h2>
-    <p>Voici un aperçu de votre espace d'administration.</p>
+    <h2>Bonjour, {{ session["admin"]}}</h2>
+    <p>Voici un résumé de votre espace d'administration.</p>
 </div>
 
-
+<!-- ============ COMPTEURS DE STATISTIQUES ============ -->
 <div class="stats-grid">
     <a href="{{ url_for('liste_actualite') }}" class="stat-card stat-blue">
         <div class="stat-icon"><i class="bi bi-newspaper"></i></div>
         <div class="stat-info">
-            <span class="stat-number">Gérer</span>
-            <span class="stat-label">Actualités</span>
+            <span class="stat-number">{{ nb_actualites.nb }}</span>
+            <span class="stat-label">Actualités publiées</span>
         </div>
         <i class="bi bi-chevron-right stat-arrow"></i>
     </a>
@@ -22,8 +22,8 @@
     <a href="{{ url_for('liste_activite') }}" class="stat-card stat-green">
         <div class="stat-icon"><i class="bi bi-calendar-event"></i></div>
         <div class="stat-info">
-            <span class="stat-number">Gérer</span>
-            <span class="stat-label">Activités</span>
+            <span class="stat-number">{{ nb_activites.nb }}</span>
+            <span class="stat-label">Activités enregistrées</span>
         </div>
         <i class="bi bi-chevron-right stat-arrow"></i>
     </a>
@@ -31,50 +31,26 @@
     <a href="{{ url_for('liste_formation') }}" class="stat-card stat-orange">
         <div class="stat-icon"><i class="bi bi-mortarboard-fill"></i></div>
         <div class="stat-info">
-            <span class="stat-number">Gérer</span>
-            <span class="stat-label">Formations</span>
-        </div>
-        <i class="bi bi-chevron-right stat-arrow"></i>
-       <a href="{{ url_for('liste_departement') }}" class="stat-card stat-indigo">
-        <div class="stat-icon"><i class="bi bi-building"></i></div>
-        <div class="stat-info">
-            <span class="stat-number">Gérer</span>
-            <span class="stat-label">Départements</span>
+            <span class="stat-number">{{ nb_formations.nb }}</span>
+            <span class="stat-label">Formations créées</span>
         </div>
         <i class="bi bi-chevron-right stat-arrow"></i>
     </a>
 
-    <a href="{{ url_for('liste_galerie') }}" class="stat-card stat-cyan">
-        <div class="stat-icon"><i class="bi bi-images"></i></div>
-        <div class="stat-info">
-            <span class="stat-number">Gérer</span>
-            <span class="stat-label">Galerie Photos</span>
-        </div>
-        <i class="bi bi-chevron-right stat-arrow"></i>
-    </a>
-</div>
-    <a href="{{ url_for('liste_contact') }}" class="stat-card stat-violet">
+
+
+    <a href="{{ url_for('liste_contact') }}" class="stat-card stat-gris">
         <div class="stat-icon"><i class="bi bi-envelope-fill"></i></div>
         <div class="stat-info">
-            <span class="stat-number">Gérer</span>
-            <span class="stat-label">Messages</span>
+            <span class="stat-number">{{ nb_messages.nb }}</span>
+            <span class="stat-label">Messages reçus</span>
         </div>
-        <i class="bi bi-chevron-right stat-arrow"></i>
-    </a>
-        <a href="{{ url_for('liste_enseignant') }}" class="stat-card stat-rose">
-        <div class="stat-icon"><i class="bi bi-person-workspace"></i></div>
-        <div class="stat-info">
-            <span class="stat-number">Gérer</span>
-            <span class="stat-label">Enseignants</span>
-        </div>
-        <i class="bi bi-chevron-right stat-arrow"></i>
-    </a>
+        </a>
+</div>
 
 
 <div class="admin-card">
-    <div class="card-header">
-        <h3><i class="bi bi-lightning-fill"></i> Actions rapides</h3>
-    </div>
+    <div class="card-header"><h3><i class="bi bi-lightning-fill"></i> Actions rapides</h3></div>
     <div class="card-body">
         <div class="quick-actions">
             <a href="{{ url_for('ajouter_actualite') }}" class="btn btn-primary">
@@ -86,14 +62,8 @@
             <a href="{{ url_for('ajouter_formation') }}" class="btn btn-warning">
                 <i class="bi bi-plus-lg"></i> Nouvelle formation
             </a>
-                        <a href="{{ url_for('ajouter_enseignant') }}" class="btn btn-rose">
-                <i class="bi bi-plus-lg"></i> Nouvel enseignant
-            </a>
             <a href="{{ url_for('ajouter_galerie') }}" class="btn btn-info">
                 <i class="bi bi-plus-lg"></i> Nouvel album
-            </a>
-                        <a href="{{ url_for('ajouter_departement') }}" class="btn btn-indigo">
-                <i class="bi bi-plus-lg"></i> Nouveau département
             </a>
         </div>
     </div>
