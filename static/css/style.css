@@ -47,6 +47,74 @@
 .nav-menu a:hover{
     color:#a94421;
 }
+/* --- Styles de base pour le bouton hamburger (caché sur PC) --- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background-color: #1d1d1d;
+    transition: 0.3s;
+}
+
+/* --- Responsive Tablettes et Téléphones (Écrans inférieurs à 992px) --- */
+@media (max-width: 992px) {
+    .nav-content {
+        padding: 0 20px; /* Évite que le logo et le bouton touchent les bords */
+    }
+
+    .logo img {
+        height: 60px; /* Réduit un peu la taille du logo sur mobile */
+    }
+
+    .menu-toggle {
+        display: flex; /* Affiche le bouton hamburger */
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 80px; /* Ajustez selon la hauteur réelle de votre navbar */
+        left: -100%; /* Cache le menu hors de l'écran par défaut */
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        gap: 0;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.1);
+        transition: 0.4s ease;
+    }
+
+    /* Quand le menu est activé (classe .active ajoutée en JavaScript) */
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+        width: 100%;
+    }
+    
+    .nav-menu li:last-child a {
+        border-bottom: none;
+    }
+}
 .hero{
     background:rgba(14, 165, 216, 0.85);
     height:240px;
