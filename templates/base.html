@@ -31,31 +31,38 @@
 
         
 
-        <nav class="navbar">
-            <div class="container nav-content">
+<nav class="navbar">
+    <div class="container nav-content">
 
-                <div class="logo">
-                    <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo UAM">
-                </div>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo UAM">
+        </div>
 
-                <ul class="nav-menu">
-                    <li><a href="{{ url_for('index') }}">ACCUEIL</a></li>
-                    <li><a href="{{ url_for('formation') }}">FORMATIONS</a></li>
-                    <li><a href="{{ url_for('departement') }}">DEPARTEMENT</a></li>
-                    <li><a href="{{ url_for('actualites') }}">ACTUALITES</a></li>
-                    <li><a href="{{ url_for('activites') }}">ACTIVITES</a></li>
-                    <li><a href="{{ url_for('gallery') }}">GALERIES</a></li>
-                    <li><a href="{{ url_for('enseignant') }}">ENSEIGNANTS</a></li>
-                    <li><a href="{{ url_for('contact') }}">CONTACTS</a></li>
-                    <li><a href="{{ url_for('login') }}">Administration</a></li>
-                </ul>
+        <!-- Déclencheur CSS pur (Case à cocher cachée + Label pour les 3 barres) -->
+        <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
+        <label for="menu-checkbox" class="menu-toggle" aria-label="Ouvrir le menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
 
-            </div>
-        </nav>
+        <ul class="nav-menu">
+            <li><a href="{{ url_for('index') }}">ACCUEIL</a></li>
+            <li><a href="{{ url_for('formation') }}">FORMATIONS</a></li>
+            <li><a href="{{ url_for('departement') }}">DEPARTEMENT</a></li>
+            <li><a href="{{ url_for('actualites') }}">ACTUALITES</a></li>
+            <li><a href="{{ url_for('activites') }}">ACTIVITES</a></li>
+            <li><a href="{{ url_for('gallery') }}">GALERIES</a></li>
+            <li><a href="{{ url_for('enseignant') }}">ENSEIGNANTS</a></li>
+            <li><a href="{{ url_for('contact') }}">CONTACTS</a></li>
+            <li><a href="{{ url_for('login') }}">Administration</a></li>
+        </ul>
+
+    </div>
+</nav>
         
        
     </header>
-
     <main class="content">
         {% block contenu %}
         {% endblock %}

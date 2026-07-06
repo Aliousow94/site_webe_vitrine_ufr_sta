@@ -13,40 +13,122 @@
 
 
 
-
-/* Navigation */
-.navbar{
-    background:white;
-    padding:10px 0;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+/* --- Styles globaux de la Navbar (PC & Tablettes) --- */
+.navbar {
+    background: white;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative; /* Indispensable pour positionner le menu mobile */
 }
 
-.nav-content{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.logo img{
-    height:80px;
+.logo img {
+    height: 80px;
 }
 
-.nav-menu{
-    list-style:none;
-    display:flex;
-    gap:30px;
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
 }
 
-.nav-menu a{
-    text-decoration:none;
-    color:#1d1d1d;
-    font-weight:600;
-    transition:0.3s;
+.nav-menu a {
+    text-decoration: none;
+    color: #1d1d1d;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.nav-menu a:hover{
-    color:#a94421;
+.nav-menu a:hover {
+    color: #a94421;
 }
+
+/* --- Cache le système mobile sur PC --- */
+.menu-checkbox {
+    display: none !important; 
+}
+
+.menu-toggle {
+    display: none; 
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2000; /* Force les 3 barres à rester au-dessus */
+}
+
+.menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background-color: #1d1d1d;
+    transition: 0.3s;
+}
+
+/* --- Uniquement pour Téléphones (Écrans inférieurs à 768px) --- */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex !important; /* Force l'affichage des 3 barres */
+    }
+
+    .nav-menu {
+        display: flex !important; /* Force le flexbox même sur mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Se place juste sous la navbar blanche */
+        left: -100% !important; /* Cache le menu à gauche au départ */
+        background-color: white;
+        width: 100%;
+        gap: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        transition: all 0.4s ease-in-out;
+        z-index: 1999; /* Met le menu au premier plan */
+    }
+
+    /* L'ACTION DU CLIC : Fait apparaître le menu */
+    .menu-checkbox:checked ~ .nav-menu {
+        left: 0 !important; /* Propulse le menu au centre de l'écran */
+    }
+
+    /* Animation des 3 barres en Croix pour montrer que c'est ouvert */
+    .menu-checkbox:checked ~ .menu-toggle span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .menu-checkbox:checked ~ .menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-checkbox:checked ~ .menu-toggle span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Mise en page des liens sur mobile */
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+        width: 100%;
+    }
+    
+    .nav-menu li:last-child a {
+        border-bottom: none;
+    }
+}
+
+
+
+
+
 .hero{
     background:rgba(14, 165, 216, 0.85);
     height:240px;

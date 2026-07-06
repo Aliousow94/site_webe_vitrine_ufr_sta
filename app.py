@@ -24,7 +24,6 @@ def index():
     connexion = get_db_connection()
     curseur = connexion.cursor()
     
-    
     curseur.execute("SELECT * FROM actualite ORDER BY date_publication DESC LIMIT 3")
     dernieres_actualites = curseur.fetchall()
     
@@ -72,6 +71,7 @@ def formation():
     connexion.close()
     
     return render_template("formation.html", formations_par_dept=formations_par_dept)
+
 @app.route("/departement")
 def departement():
     connexion = get_db_connection()
@@ -116,14 +116,11 @@ def actualites():
 
 @app.route("/activites")
 def activites():
-
     connexion = get_db_connection()
     curseur = connexion.cursor()
     
-    
     curseur.execute("SELECT * FROM activite ORDER BY date_activite,id DESC")
     activites = curseur.fetchall()
-    
     
     for act in activites:
         curseur.execute("SELECT photo FROM photo_activite WHERE id_activite=%s", (act['id'],))
@@ -131,12 +128,12 @@ def activites():
         
     curseur.close()
     connexion.close()
-    return render_template("activites.html",activites=activites)
+    return render_template("activites.html", activites=activites)
+
 @app.route("/enseignant")
 def enseignant():
     connexion = get_db_connection()
     curseur = connexion.cursor()
-    
     
     sql = """
         SELECT e.*, d.nom as nom_departement 
@@ -151,6 +148,7 @@ def enseignant():
     connexion.close()
     
     return render_template("enseignant.html", enseignants=enseignants)
+
 @app.route("/gallery")
 def gallery():
     connexion = get_db_connection()
@@ -177,6 +175,7 @@ def gallery():
     connexion.close()
     
     return render_template("gallery.html", albums=albums)
+
 @app.route("/contact")
 
 def contact():
