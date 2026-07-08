@@ -154,44 +154,12 @@ Accueil
             </div>
         </div>
     </section>
+    <section class="news-section">
+                                      <h2>Nos dernières actualités</h2>
 
-        <section class="news-section">
-        <div class="news-header">
-            <h2>Nos dernières actualités</h2>
-        </div>
+    <div class="news-container">
 
-        <div class="news-container">
-
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/moodle.png') }}" alt="moodle">
-                </div>
-                <div class="news-content">
-                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 27 juin 2026</span>
-                    <h3>L’UFR STA de l’UAM a organisé une séance de concertation sur la continuité pédagogique en ligne dans le cadre des JOJ Dakar 2026. Elle a permis de présenter le dispositif d’enseignement à distance et de renforcer l’accompagnement de la communauté universitaire.</h3>
-                </div>
-            </article>
-
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/mer.png') }}" alt="mer">
-                </div>
-                <div class="news-content">
-                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 25 Juin 2026</span>
-                    <h3>Les étudiants de l’UFR STA de l’UAM ont participé à la 7ᵉ Journée internationale des gens de mer, organisée par l’ANAM, où ils ont présenté les formations de l’UFR à travers un stand institutionnel. Cette participation a renforcé la visibilité de l’UAM et les échanges avec les acteurs du secteur maritime.</h3>
-                </div>
-            </article>
-
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{{ url_for('static', filename='images/passation.jpeg') }}" alt="Cérémonie de passation">
-                </div>
-                <div class="news-content">
-                    <span class="news-date"><i class="fa-regular fa-calendar-days"></i> 30 avril 2026</span>
-                    <h3>Cérémonie de passation de service au poste de directeur adjoint</h3>
-                </div>
-            </article>
-
+        
             {% if dernieres_actualites|length == 0 %}
                 <p style="text-align: center; color: #666; padding: 20px;">Aucune actualité publiée pour le moment.</p>
             {% else %}
@@ -199,7 +167,7 @@ Accueil
                 <article class="news-card">
                     <div class="news-image">
                         {% if a.photo %}
-                            <!-- Le style="..." corrige la tête coupée SANS modifier le CSS du collaborateur -->
+                            
                             <img src="{{ url_for('static', filename='uploads/actualites/' ~ a.photo) }}" alt="{{ a.titre }}" style="object-fit: contain; background-color: #f0f0f0;">
                         {% else %}
                             <img src="https://via.placeholder.com/400x220?text=Actualite" alt="Actualité">

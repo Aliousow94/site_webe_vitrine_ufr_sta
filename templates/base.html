@@ -6,7 +6,11 @@
     <title>{% block title %}UFR STA{% endblock %}</title>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    
+    
 </head>
 <body>  
     
@@ -38,6 +42,7 @@
             <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo UAM">
         </div>
 
+
         <!-- Déclencheur CSS pur (Case à cocher cachée + Label pour les 3 barres) -->
         <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
         <label for="menu-checkbox" class="menu-toggle" aria-label="Ouvrir le menu">
@@ -45,6 +50,10 @@
             <span></span>
             <span></span>
         </label>
+
+
+               
+
 
         <ul class="nav-menu">
             <li><a href="{{ url_for('index') }}">ACCUEIL</a></li>
@@ -63,6 +72,11 @@
         
        
     </header>
+
+
+        
+
+
     <main class="content">
         {% block contenu %}
         {% endblock %}
@@ -71,5 +85,6 @@
     <footer class="site-footer">
         <p>&copy; 2026 UFR Sciences et Technologies Avancées (STA)</p>
     </footer>
+    
 </body>
 </html>

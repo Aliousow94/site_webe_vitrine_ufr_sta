@@ -176,7 +176,7 @@ def gallery():
     
     return render_template("gallery.html", albums=albums)
 
-@app.route("/contact")
+@app.route("/contact" ,methods=['GET', 'POST'])
 
 def contact():
     if request.method == "POST":

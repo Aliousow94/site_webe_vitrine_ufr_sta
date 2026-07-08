@@ -1,0 +1,60 @@
+/* ==========================================
+   CSS RESPONSIVE MOBILE (Ne touche pas au style.css principal)
+   ========================================== */
+
+/* On cache le bouton hamburger sur ordinateur */
+.menu-toggle-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    /* Adapte la couleur au texte de ton menu existant */
+    color: inherit; 
+}
+
+/* --- FORMAT MOBILE (Écrans de moins de 768px) --- */
+@media screen and (max-width: 768px) {
+
+    /* 1. On affiche le bouton hamburger */
+    .menu-toggle-btn {
+        display: block;
+    }
+
+    /* 2. On cible le conteneur UL de ton collaborateur (à adapter selon sa classe) */
+    /* Remplace '.menu-existent' par le nom de classe que ton collaborateur a donné au <ul> */
+    .menu-existent {
+        /* On le sort du flux et on le met à gauche */
+        position: fixed;
+        top: 0;
+        left: -280px; /* Caché hors écran */
+        width: 280px;
+        height: 100vh;
+        background-color: #ffffff; /* Mets la couleur de fond de ton site */
+        flex-direction: column !important; /* Force l'affichage vertical */
+        padding: 60px 20px 20px 20px;
+        gap: 20px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        transition: left 0.3s ease;
+        z-index: 9999;
+        margin: 0;
+        list-style: none;
+    }
+
+    /* 3. Animation d'ouverture */
+    .menu-existent.menu-open {
+        left: 0; /* Le menu glisse vers la droite */
+    }
+
+    /* 4. Bouton pour fermer (caché sur PC) */
+    .close-menu-btn {
+        display: block !important;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+}

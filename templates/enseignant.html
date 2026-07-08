@@ -21,19 +21,7 @@
         {% for e in enseignants %}
         <div class="enseignant-card">
             
-<<<<<<< HEAD
-            <div class="carte-prof">
-                <div class="conteneur-photo">
-                    <img src="{{ url_for('static', filename='images/derecteur.png') }}" alt="coulibaly" class="photo-prof">
-                </div>
-                <div class="infos-prof">
-                    <h3 class="nom-prof">Dr.alioune koulibaly</h3>
-                    <span class="grade-prof">Professeur Titulaire</span>
-                    <hr class="separateur">
-                    <p><strong>Département :</strong> Mathématique appliquée</p>
-                    <p><strong>Email :</strong> <a href="mailto:alioune.coulibaly@uam.edu.sn">alioune.coulibaly@uam.edu.sn</a></p>
-                    <p class="recherche"><strong>Domaines de recherche :</strong> </p>
-=======
+
             <!-- Photo de profil -->
             <div class="enseignant-photo-box">
                 {% if e.photo %}
@@ -41,7 +29,7 @@
                 {% else %}
                 <div class="enseignant-img-placeholder">
                     <i class="bi bi-person-fill"></i>
->>>>>>> 9490a11384016a054484e04cc94e4cf0a71ba1fc
+
                 </div>
                 {% endif %}
             </div>
